@@ -1,284 +1,275 @@
-
-<router-outlet></router-outlet>
-<hr>
-<nav>
-  <a routerLink="/">Home</a>
-  <br>
-  <a routerLink="/conditional-rendering">Conditional Rendering</a>
-  <a routerLink="/about">About</a>
-  
-
-  <a routerLink="/forms">forms</a>
-</nav>
-<router-outlet></router-outlet>
-<main class="main">
-  <a routerLink="/conditional-rendering">Conditional Rendering</a>
-
-  <p>thethird result is {{points[3] }}</p>
-  <p>The third result is <span ng-bind="">{{points[2]}}</span></p>
-
-  <p>Input something in the input box:</p>
-
-  <p>Name: <input type="text" ng-init="firstName = ''" ng-model="firstName"></p>
-  <p>Last Name: <input type="text" ng-init="lastName = ''" ng-model="lastName"></p>
-
-
-  <button ng-click="clickMe(firstName, lastName)">Click Me</button>
-  <p>You wrote: {{ firstName }}</p>
-
-
-  <div ng-app="" ng-init="quantity=1;price=5">
-
-    Quantity: <input type="number" ng-model="quantity">
-    Costs: <input type="number" ng-model="price">
-
-    <p>Total in $: {{ (quantity || 0) * (price || 0) }}</p>
+<nav class="navbar">
+  <span class="brand">Angular Lecture</span>
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/conditional-rendering" routerLinkActive="active">Conditional Rendering</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/forms" routerLinkActive="active">Forms</a>
   </div>
+</nav>
 
-  <!-- <div ng-app="" ng-init="">
+<router-outlet></router-outlet>
 
-<ul>
-  <li ng-repeat="x in names">
-    {{ (x.name) + ', ' + (x.country )}}
-  </li>
-</ul>
+<main class="main">
 
-</div> -->
+  <section class="card">
+    <h2>Data Binding</h2>
+    <div class="field">
+      <label>Third item in array:</label>
+      <p class="result">{{ points[3] }}</p>
+    </div>
+    <div class="field">
+      <label>Third result:</label>
+      <p class="result">{{ points[2] }}</p>
+    </div>
+  </section>
 
-  ts
+  <section class="card">
+    <h2>Input Binding</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" [(ngModel)]="firstName" placeholder="Enter first name">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" [(ngModel)]="lastName" placeholder="Enter last name">
+      </div>
+    </div>
+    <button class="btn-primary" (click)="clickMe(firstName, lastName)">Click Me</button>
+    <p class="result" *ngIf="firstName">You wrote: {{ firstName }}</p>
+  </section>
 
-  <h3> these are the names {{names.length}}</h3>
-  <h2> the first name is {{names[0].name}} and the country is {{names[0].country}}</h2>
+  <section class="card">
+    <h2>Calculator</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>Quantity</label>
+        <input type="number" [(ngModel)]="quantity" min="0">
+      </div>
+      <div class="field">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="price" min="0">
+      </div>
+    </div>
+    <p class="result highlight">Total: ${{ (quantity || 0) * (price || 0) }}</p>
+  </section>
 
-  <!-- What are Pipes in Templates (|)?
-Transform values for display using the | operator.
-Accept optional arguments (e.g., formats, locales).
-Multiple pipes can be chained. -->
-
-
-  build in pipes lecture
-
-  <p>today is {{ today.getFullYear() }}-{{ (today.getMonth()+1) < 10 ? ('0'+(today.getMonth()+1)) : (today.getMonth()+1)
-      }}-{{ today.getDate() < 10 ? ('0'+today.getDate()) : today.getDate() }}</p>
-      <p>an the username is {{name}}</p>
-      <p>the ratio is {{ (ratio || 0).toFixed(2) }}</p>
-
-
-
-      What is Attribute Binding with attr.?
-      <!-- Use [attr.name] to set HTML attributes.
-For attributes that do not map to DOM properties (e.g., ARIA, colspan).
-Distinct from property binding. -->
-
-      <h3>Attribute binding (attr.)</h3>
-      <button [attr.aria-label]="label" (click)="toggle()">Toggle label</button>
-      <table border="1" style="margin-top:8px">
-        <tr>
-          <th>A</th>
-          <th>B</th>
-          <th>C</th>
-        </tr>
-        <tr>
-          <td [attr.colspan]="wide ? 2 : 1">Row 1</td>
-          <td>Cell</td>
-          <td>Cell</td>
-        </tr>
+  <section class="card">
+    <h2>Names Array</h2>
+    <p class="muted">Total items: {{ names.length }}</p>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let person of names; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.country }}</td>
+          </tr>
+        </tbody>
       </table>
+    </div>
+  </section>
 
-      <button (click)="shuffle()">Shuffle</button>
-      <ul>
-        <li *ngFor="let it of items; trackBy: trackById">{{ it.id }} - {{ it.name }}</li>
-      </ul>
+  <section class="card">
+    <h2>Built-in Pipes</h2>
+    <div class="field">
+      <label>Today:</label>
+      <p class="result">{{ today.getFullYear() }}-{{ (today.getMonth()+1) < 10 ? ('0'+(today.getMonth()+1)) : (today.getMonth()+1) }}-{{ today.getDate() < 10 ? ('0'+today.getDate()) : today.getDate() }}</p>
+    </div>
+    <div class="field">
+      <label>Username:</label>
+      <p class="result">{{ name }}</p>
+    </div>
+    <div class="field">
+      <label>Ratio:</label>
+      <p class="result">{{ (ratio || 0).toFixed(2) }}</p>
+    </div>
+  </section>
 
+  <section class="card">
+    <h2>Attribute Binding</h2>
+    <div class="toolbar">
+      <button class="btn-secondary" [attr.aria-label]="label" (click)="toggle()">{{ label }}</button>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>A</th><th>B</th><th>C</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td [attr.colspan]="wide ? 2 : 1">Row 1</td>
+            <td>Cell</td>
+            <td>Cell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
+  <section class="card">
+    <h2>TrackBy & Shuffle</h2>
+    <button class="btn-secondary" (click)="shuffle()">Shuffle</button>
+    <ul class="item-list">
+      <li *ngFor="let it of items; trackBy: trackById">{{ it.id }} - {{ it.name }}</li>
+    </ul>
+  </section>
 
+  <section class="card">
+    <h2>Data Binding</h2>
+    <div class="field">
+      <label>Your Name</label>
+      <input type="text" [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
+    </div>
+    <p class="result">Hello {{ name }}!</p>
+    <div class="toolbar">
+      <button class="btn-primary" (click)="count = count + 1">Clicked {{ count }} times</button>
+      <button class="btn-disabled" [disabled]="isDisabled">Can't click me</button>
+    </div>
+  </section>
 
-      <h3>Data Binding</h3>
-      <input [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
-      <p>Hello {{ name }}!</p>
-      <button (click)="count = count + 1">Clicked {{ count }} times</button>
-      <button [disabled]="isDisabled">Can't click me</button>
-
-
-      <!-- Two-way Binding
-Sync template and component: page ↔ component.
-Use [(ngModel)] for form controls.
-Conceptually equals [value] + (input).
-Requires FormsModule. -->
-      <!-- <input [(ngModel)]="name"> -->
-
-
-      <h3>Two-way Binding (ngModel)</h3>
-
-      <label>
-        Name: <input [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name" />
-      </label>
-
-      <label style="margin-left:12px">
-        Favorite:
+  <section class="card">
+    <h2>Two-way Binding</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
+      </div>
+      <div class="field">
+        <label>Favorite</label>
         <select [value]="favorite" (change)="favorite = $any($event.target).value">
           <option value="Angular">Angular</option>
           <option value="TypeScript">TypeScript</option>
           <option value="JavaScript">JavaScript</option>
         </select>
-      </label>
-
-      <p>Hello {{ name || 'friend' }}!</p>
-      <p>Favorite: {{ favorite }}</p>
-
-
-      <h3>Attribute Binding (attr.*)</h3>
-
-      <div class="toolbar">
-        <label>Colspan: <input type="range" min="1" max="3" [value]="span" (input)="span = +$any($event.target).value">
-          {{ span }}</label>
-        <!-- Use a local mutable variable 'titleLocal' to avoid assigning to a read-only 'title' -->
-        <label>Title: <input [value]="titleLocal" (input)="titleLocal = $any($event.target).value"></label>
       </div>
+    </div>
+    <p class="result">Hello {{ name || 'friend' }}!</p>
+    <p class="result muted">Favorite: {{ favorite }}</p>
+  </section>
 
+  <section class="card">
+    <h2>Attribute Binding (Advanced)</h2>
+    <div class="toolbar">
+      <div class="field inline">
+        <label>Colspan</label>
+        <input type="range" min="1" max="3" [value]="span" (input)="span = +$any($event.target).value">
+        <span class="badge">{{ span }}</span>
+      </div>
+      <div class="field inline">
+        <label>Title</label>
+        <input type="text" [value]="titleLocal" (input)="titleLocal = $any($event.target).value" placeholder="Enter table title">
+      </div>
+    </div>
+    <div class="table-wrapper">
       <table [attr.title]="titleLocal">
         <thead>
-          <tr>
-            <th>A</th>
-            <th>B</th>
-            <th>C</th>
-          </tr>
+          <tr><th>A</th><th>B</th><th>C</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td [attr.colspan]="span" style="background:#f9fbff">colspan={{ span }}</td>
+            <td [attr.colspan]="span" style="background:#f0f7ff">colspan={{ span }}</td>
             <td *ngIf="span < 2">B</td>
             <td *ngIf="span < 3">C</td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </section>
 
+  <section class="card">
+    <h2>Directives</h2>
+    <p class="muted" *ngIf="items.length > 0">We have {{ items.length }} items</p>
+    <ul class="item-list">
+      <li *ngFor="let item of items">{{ item }}</li>
+    </ul>
+    <button class="btn-secondary" (click)="toggle()">Toggle Items</button>
+  </section>
 
-      <!-- Basic Directives
-*ngIf shows/hides content based on a condition.
-*ngFor repeats a block for each list item.
-Toggle a flag to add/remove the list; render items with *ngFor. -->
-      <!-- <p *ngIf="items.length > 0">We have {{ items.length }} items</p>
-<li *ngFor="let item of items">{{ item }}</li> -->
+  <section class="card">
+    <h2>ngIf with else</h2>
+    <button class="btn-primary" (click)="loggedIn = !loggedIn">
+      {{ loggedIn ? 'Log out' : 'Log in' }}
+    </button>
 
-      <h3>Directives</h3>
-      <p *ngIf="items.length > 0">We have {{ items.length }} items</p>
-      <ul>
-        <li *ngFor="let item of items">{{ item }}</li>
-      </ul>
-      <button (click)="toggle()">Toggle Items</button>
+    <ng-container *ngIf="loggedIn; else loggedOut">
+      <p class="result success">Welcome back, {{ user }}!</p>
+    </ng-container>
 
-      <!-- ngIf with else
-Point *ngIf to a fallback template with else.
-Use then/else syntax to make both branches explicit.
-Angular adds/removes DOM blocks entirely. -->
+    <ng-template #loggedOut>
+      <p class="result muted">Please log in to continue.</p>
+    </ng-template>
+  </section>
 
-      <!-- syntax 
-<ng-container *ngIf="loggedIn; else loggedOut"></ng-container>
-<ng-template #loggedOut>...</ng-template>
+  <section class="card">
+    <h2>ngIf then/else</h2>
+    <button class="btn-secondary" (click)="hasAccess = !hasAccess">
+      Toggle Access ({{ hasAccess ? 'granted' : 'denied' }})
+    </button>
 
-<ng-container *ngIf="hasAccess; then accessTpl; else noAccessTpl"></ng-container> -->
+    <ng-container *ngIf="hasAccess; then accessTpl; else noAccessTpl"></ng-container>
 
+    <ng-template #accessTpl>
+      <p class="result success">Access granted.</p>
+    </ng-template>
+    <ng-template #noAccessTpl>
+      <p class="result error">Access denied.</p>
+    </ng-template>
+  </section>
 
-      <h3>ngIf with else</h3>
+  <section class="card">
+    <h2>Attribute Directive (Highlight)</h2>
+    <p class="muted">Hover the first box to see the effect:</p>
+    <div class="box" w3Highlight="lightyellow">I get highlighted on hover</div>
+    <div class="box" style="margin-top: 8px">I do not</div>
+  </section>
 
-      <button (click)="loggedIn = !loggedIn">
-        {{ loggedIn ? 'Log out' : 'Log in' }}
-      </button>
+  <section class="card">
+    <h2>Events</h2>
+    <p class="result">Count: {{ count }}</p>
+    <button class="btn-primary" (click)="increment()">Click me</button>
 
-      <ng-container *ngIf="loggedIn; else loggedOut">
-        <p>Welcome back, {{ user }}!</p>
-      </ng-container>
+    <div class="field" style="margin-top: 16px">
+      <label>Type something</label>
+      <input type="text" placeholder="Type..." (input)="onInput($event)" (keyup)="lastKey = $any($event).key">
+    </div>
+    <div class="result-row">
+      <p class="result">Value: {{ value }}</p>
+      <p class="result">Last key: {{ lastKey }}</p>
+    </div>
+  </section>
 
-      <ng-template #loggedOut>
-        <p>Please log in to continue.</p>
-      </ng-template>
+  <section class="card">
+    <h2>Event Filtering (keyup.enter)</h2>
+    <div class="toolbar">
+      <input type="text" placeholder="Add item and press Enter" [value]="draft"
+        (input)="draft = $any($event.target).value" (keyup.enter)="add()">
+      <button class="btn-primary" (click)="add()">Add</button>
+      <button class="btn-secondary" (click)="clear()">Clear</button>
+    </div>
+    <ul class="item-list">
+      <li *ngFor="let it of todoItems; let i = index">{{ i + 1 }}. {{ it }}</li>
+    </ul>
+  </section>
 
-      <hr>
-
-      <h4>ngIf then/else syntax</h4>
-      <button (click)="hasAccess = !hasAccess">
-        Toggle Access ({{ hasAccess ? 'granted' : 'denied' }})
-      </button>
-
-      <ng-container *ngIf="hasAccess; then accessTpl; else noAccessTpl"></ng-container>
-
-      <ng-template #accessTpl>
-        <p style="color: seagreen">Access granted.</p>
-      </ng-template>
-      <ng-template #noAccessTpl>
-        <p style="color: crimson">Access denied.</p>
-      </ng-template>
-
-
-
-      <!-- Attribute Directive (hover highlight)
-Runs on an existing element (no DOM created/destroyed).
-Changes appearance or behavior (e.g., add styles, classes, attributes).
-Example uses @HostBinding and @HostListener to set background on hover. -->
-
-      <h3>Attribute Directive (highlight)</h3>
-      <p>Hover the first box to see the effect:</p>
-      <div class="box" w3Highlight="lightyellow">I get highlighted on hover</div>
-      <div class="box" style="margin-top:8px">I do not</div>
-
-
-
-
-      Angular Events
-      <!-- 
-      Event Binding Essentials
-Bind with (event) to run a component method; $event is the native Event.
-Use common DOM events like (click), (input), and key filters like (keyup.enter).
-Debounce handlers to limit work during fast input.
-Bubbling: Child events bubble up; call $event.stopPropagation() when needed. -->
-
-      <!-- <button (click)="onClick()">Click</button>
-<input (input)="onInput($event)" (keyup.enter)="submit()">
-<div (click)="onParentClick()">
-  <button (click)="onChildClick($event)">Child</button>
-</div> -->
-
-      <h3>Events</h3>
-      <p>Count: {{ count }}</p>
-      <button (click)="increment()">Click me</button>
-
-      <div style="margin-top:12px">
-        <input placeholder="Type..." (input)="onInput($event)" (keyup)="lastKey = $any($event).key">
-        <p>Value: {{ value }}</p>
-        <p>Last key: {{ lastKey }}</p>
-      </div>
-
-
-      <h3>Event Filtering (keyup.enter)</h3>
-
-      <div class="toolbar">
-        <input type="text" placeholder="Add item and press Enter" [value]="draft"
-          (input)="draft = $any($event.target).value" (keyup)="lastKey = $any($event).key" (keyup.enter)="add()">
-        <button (click)="add()">Add</button>
-        <button (click)="clear()" [disabled]="items.length === 0">Clear</button>
-        <span style="margin-left:8px;color:#666">Last key: {{ lastKey }}</span>
-      </div>
-
-      <ul>
-        <li *ngFor="let it of items; let i = index">{{ i + 1 }}. {{ it }}</li>
-      </ul>
-
-      <h3>Debounced Input</h3>
-      <input type="text" placeholder="Type here" (input)="onInput($event)">
-      <p>Immediate: {{ immediate }}</p>
-      <p>Debounced (400ms): {{ debounced }}</p>
-
-      Conditional Rendering Essentials
-      <!-- Use @if / @else if / @else for conditional logic.
-Use @switch to select one view among many.
-Signals: Drive conditions from signals and read them with sig() in templates.
-Hide vs remove: @if removes from the DOM; use [hidden] or CSS to hide without destroying.
-Legacy: *ngIf and [ngSwitch] remain supported but are not shown here.
-@if (condition) { <p>Shown</p> } @else { <p>Hidden</p> } -->
-
-      <!-- <app-conditional-rendering>
-  
-</app-conditional-rendering>   -->
+  <section class="card">
+    <h2>Debounced Input</h2>
+    <div class="field">
+      <label>Type here</label>
+      <input type="text" placeholder="Type here" (input)="onInput1($event)">
+    </div>
+    <div class="result-row">
+      <p class="result">Immediate: {{ immediate }}</p>
+      <p class="result">Debounced (400ms): {{ debounced }}</p>
+    </div>
+  </section>
 
 </main>

@@ -1,86 +1,76 @@
-<p>forms works!</p>
+<h1 class="page-title">Forms</h1>
+<p class="page-subtitle">Template-driven forms with validation, binding, and submission handling.</p>
 
-Template-driven Forms
-Quick to start and feels like plain HTML.
-Bind with [(ngModel)] and unique name attributes.
-Access overall state via exported ngForm (e.g., valid, touched).
-Import FormsModule in standalone components.
+<div class="card">
+  <h3>Simple Form</h3>
+  <form (submit)="onSubmit()">
+    <div class="field">
+      <label>Name</label>
+      <input name="name" [value]="name" (input)="name = $event.target.value" placeholder="Enter your name">
+    </div>
+    <button class="btn-primary" type="submit">Submit</button>
+  </form>
+  <p class="result" *ngIf="name">Value: {{ name }}</p>
+  <p class="success-msg" *ngIf="submitted">Submitted!</p>
+</div>
 
-<h3>Forms</h3>
-<form (submit)="onSubmit()">
-    <label>
-        Name:
-        <input name="name" [value]="name" (input)="name = $event.target.value" placeholder="Enter your name">
-    </label>
-    <button type="submit">Submit</button>
-</form>
-<p>Value: {{ name }}</p>
-<p *ngIf="submitted">Submitted!</p>
-
-
-
-<h3>Forms Validation</h3>
-<form (submit)="onSubmit()" novalidate>
-    <label>
-        Name:
-        <input name="name" [value]="model.name" (input)="model.name = $event.target.value" required minlength="3"
-            #nameInput>
-    </label>
-    <div *ngIf="(submitted || nameInput.value) && (nameInput.validity.valueMissing || nameInput.validity.tooShort)"
-        style="color:crimson">
+<div class="card">
+  <h3>Form with Validation</h3>
+  <form (submit)="onSubmit()" novalidate>
+    <div class="field">
+      <label>Name</label>
+      <input name="name" [value]="model.name" (input)="model.name = $event.target.value" required minlength="3"
+        #nameInput>
+      <div class="error-msg" *ngIf="(submitted || nameInput.value) && (nameInput.validity.valueMissing || nameInput.validity.tooShort)">
         <small *ngIf="nameInput.validity.valueMissing">Name is required.</small>
         <small *ngIf="nameInput.validity.tooShort">Name must be at least 3 characters.</small>
+      </div>
     </div>
 
-    <label>
-        Email:
-        <input name="email" [value]="model.email" (input)="model.email = $event.target.value" type="email" required
-            #emailInput>
-    </label>
-    <div *ngIf="(submitted || emailInput.value) && (emailInput.validity.valueMissing || emailInput.validity.typeMismatch)"
-        style="color:crimson">
+    <div class="field">
+      <label>Email</label>
+      <input name="email" [value]="model.email" (input)="model.email = $event.target.value" type="email" required
+        #emailInput>
+      <div class="error-msg" *ngIf="(submitted || emailInput.value) && (emailInput.validity.valueMissing || emailInput.validity.typeMismatch)">
         <small *ngIf="emailInput.validity.valueMissing">Email is required.</small>
         <small *ngIf="emailInput.validity.typeMismatch">Email must be valid.</small>
+      </div>
     </div>
 
-    <button type="submit">Submit</button>
-</form>
+    <button class="btn-primary" type="submit">Submit</button>
+  </form>
+  <p class="result" *ngIf="submitted" style="margin-top: 12px">Submitted: Name: {{ model.name }}, Email: {{ model.email }}</p>
+</div>
 
-<p *ngIf="submitted">Submitted: Name: {{ model.name }}, Email: {{ model.email }}</p>
-
-
-
-<h3>Reactive Forms (converted to template-driven to avoid ReactiveFormsModule requirement)</h3>
-<form (submit)="onSubmited()" novalidate>
-    <label>
-        Name
-        <input name="name" placeholder="Your name" required minlength="3" #reactiveNameInput>
-    </label>
-    <div *ngIf="(submitted || reactiveNameInput.value) && (reactiveNameInput.validity.valueMissing || reactiveNameInput.validity.tooShort)"
-        style="color:crimson">
+<div class="card">
+  <h3>Reactive-style Form</h3>
+  <form (submit)="onSubmited()" novalidate>
+    <div class="field">
+      <label>Name</label>
+      <input name="name" placeholder="Your name" required minlength="3" #reactiveNameInput>
+      <div class="error-msg" *ngIf="(submitted || reactiveNameInput.value) && (reactiveNameInput.validity.valueMissing || reactiveNameInput.validity.tooShort)">
         <small *ngIf="reactiveNameInput.validity.valueMissing">Name is required.</small>
         <small *ngIf="reactiveNameInput.validity.tooShort">Min 3 characters.</small>
+      </div>
     </div>
 
-    <label>
-        Email
-        <input name="email" placeholder="you@example.com" required email #reactiveEmailInput>
-    </label>
-    <div *ngIf="(submitted || reactiveEmailInput.value) && (reactiveEmailInput.validity.valueMissing || reactiveEmailInput.validity.typeMismatch)"
-        style="color:crimson">
+    <div class="field">
+      <label>Email</label>
+      <input name="email" placeholder="you@example.com" required email #reactiveEmailInput>
+      <div class="error-msg" *ngIf="(submitted || reactiveEmailInput.value) && (reactiveEmailInput.validity.valueMissing || reactiveEmailInput.validity.typeMismatch)">
         <small *ngIf="reactiveEmailInput.validity.valueMissing">Email is required.</small>
         <small *ngIf="reactiveEmailInput.validity.typeMismatch">Email must be valid.</small>
+      </div>
     </div>
 
-    <label>
-        <input type="checkbox" name="newsletter" #reactiveNewsletterInput>
-        Subscribe to newsletter
-    </label>
+    <div class="checkbox-row">
+      <input type="checkbox" id="newsletter" name="newsletter" #reactiveNewsletterInput>
+      <label for="newsletter">Subscribe to newsletter</label>
+    </div>
 
-    <button type="submit">Submit</button>
-</form>
-
-<p>Status: {{ submitted ? 'SUBMITTED' : 'NOT SUBMITTED' }}</p>
-<p>Value: Name: {{ reactiveNameInput.value }}, Email: {{ reactiveEmailInput.value }}, Newsletter: {{
-    reactiveNewsletterInput.checked ? 'yes' : 'no' }}</p>
-<p *ngIf="submitted" style="color: seagreen;">Submitted!</p>
+    <button class="btn-primary" type="submit">Submit</button>
+  </form>
+  <p class="result muted" style="margin-top: 12px">Status: {{ submitted ? 'SUBMITTED' : 'NOT SUBMITTED' }}</p>
+  <p class="result muted">Value: Name: {{ reactiveNameInput.value }}, Email: {{ reactiveEmailInput.value }}, Newsletter: {{ reactiveNewsletterInput.checked ? 'yes' : 'no' }}</p>
+  <p class="success-msg" *ngIf="submitted">Submitted!</p>
+</div>
