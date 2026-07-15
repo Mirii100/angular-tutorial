@@ -1,0 +1,86 @@
+<p>forms works!</p>
+
+Template-driven Forms
+Quick to start and feels like plain HTML.
+Bind with [(ngModel)] and unique name attributes.
+Access overall state via exported ngForm (e.g., valid, touched).
+Import FormsModule in standalone components.
+
+<h3>Forms</h3>
+<form (submit)="onSubmit()">
+    <label>
+        Name:
+        <input name="name" [value]="name" (input)="name = $event.target.value" placeholder="Enter your name">
+    </label>
+    <button type="submit">Submit</button>
+</form>
+<p>Value: {{ name }}</p>
+<p *ngIf="submitted">Submitted!</p>
+
+
+
+<h3>Forms Validation</h3>
+<form (submit)="onSubmit()" novalidate>
+    <label>
+        Name:
+        <input name="name" [value]="model.name" (input)="model.name = $event.target.value" required minlength="3"
+            #nameInput>
+    </label>
+    <div *ngIf="(submitted || nameInput.value) && (nameInput.validity.valueMissing || nameInput.validity.tooShort)"
+        style="color:crimson">
+        <small *ngIf="nameInput.validity.valueMissing">Name is required.</small>
+        <small *ngIf="nameInput.validity.tooShort">Name must be at least 3 characters.</small>
+    </div>
+
+    <label>
+        Email:
+        <input name="email" [value]="model.email" (input)="model.email = $event.target.value" type="email" required
+            #emailInput>
+    </label>
+    <div *ngIf="(submitted || emailInput.value) && (emailInput.validity.valueMissing || emailInput.validity.typeMismatch)"
+        style="color:crimson">
+        <small *ngIf="emailInput.validity.valueMissing">Email is required.</small>
+        <small *ngIf="emailInput.validity.typeMismatch">Email must be valid.</small>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+
+<p *ngIf="submitted">Submitted: Name: {{ model.name }}, Email: {{ model.email }}</p>
+
+
+
+<h3>Reactive Forms (converted to template-driven to avoid ReactiveFormsModule requirement)</h3>
+<form (submit)="onSubmited()" novalidate>
+    <label>
+        Name
+        <input name="name" placeholder="Your name" required minlength="3" #reactiveNameInput>
+    </label>
+    <div *ngIf="(submitted || reactiveNameInput.value) && (reactiveNameInput.validity.valueMissing || reactiveNameInput.validity.tooShort)"
+        style="color:crimson">
+        <small *ngIf="reactiveNameInput.validity.valueMissing">Name is required.</small>
+        <small *ngIf="reactiveNameInput.validity.tooShort">Min 3 characters.</small>
+    </div>
+
+    <label>
+        Email
+        <input name="email" placeholder="you@example.com" required email #reactiveEmailInput>
+    </label>
+    <div *ngIf="(submitted || reactiveEmailInput.value) && (reactiveEmailInput.validity.valueMissing || reactiveEmailInput.validity.typeMismatch)"
+        style="color:crimson">
+        <small *ngIf="reactiveEmailInput.validity.valueMissing">Email is required.</small>
+        <small *ngIf="reactiveEmailInput.validity.typeMismatch">Email must be valid.</small>
+    </div>
+
+    <label>
+        <input type="checkbox" name="newsletter" #reactiveNewsletterInput>
+        Subscribe to newsletter
+    </label>
+
+    <button type="submit">Submit</button>
+</form>
+
+<p>Status: {{ submitted ? 'SUBMITTED' : 'NOT SUBMITTED' }}</p>
+<p>Value: Name: {{ reactiveNameInput.value }}, Email: {{ reactiveEmailInput.value }}, Newsletter: {{
+    reactiveNewsletterInput.checked ? 'yes' : 'no' }}</p>
+<p *ngIf="submitted" style="color: seagreen;">Submitted!</p>

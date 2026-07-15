@@ -1,0 +1,25 @@
+<p>conditional-rendering works!</p>
+
+
+@if (showMessage) {
+  <p>Welcome to Angular 21!</p>
+} @else {
+  <p>Message is hidden.</p>
+}
+
+<h3>Conditional Rendering</h3>
+    <button (click)="show.set(!show())">Toggle</button>
+    @if (show()) { <p>Now you see me!</p> } @else { <p>Now I'm hidden.</p> }
+
+
+
+    <!-- @switch
+Switch on a single value with @switch and render the matching case.
+Always provide an explicit default for unexpected values with @default.
+@switch (status) {
+  @case ('loading') { <p>Loading...</p> }
+  @case ('success') { <p>Success!</p> }
+  @case ('error') { <p style="color:crimson">Error!</p> }
+  @default { <p>Unknown status</p> }
+} -->
+  

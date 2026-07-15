@@ -1,0 +1,26 @@
+table {
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.box {
+    padding: 10px;
+    border: 1px dashed #bbb;
+    border-radius: 6px;
+}
+.toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    ul { margin-top: 10px; }
+    li { line-height: 1.8; }
+    input[type="text"] { padding: 6px 8px; }

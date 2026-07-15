@@ -1,0 +1,60 @@
+<p>about works!</p>
+
+
+ <h3>Conditional Rendering with switch</h3>
+    <label>
+      Status:
+      <select (change)="status.set($any($event.target).value)">
+        <option value="loading">loading</option>
+        <option value="success">success</option>
+        <option value="error">error</option>
+      </select>
+    </label>
+
+    @switch (status()) {
+      @case ('loading') { <p>Loading...</p> }
+      @case ('success') { <p>Success!</p> }
+      @case ('error') { <p style="color:crimson">Error!</p> }
+      @default { <p>Unknown status</p> }
+    }
+
+    Angular lists 
+
+    <!-- List Rendering Essentials
+Loop: Use @for with track for stable identity and @empty for empty states.
+Signals: Store list state in a signal (e.g., items = signal([...])) and update immutably with set()/update().
+Identity: Track by a stable key (e.g., it.id) to avoid unnecessary DOM work.
+Derived views: Filter/sort copies of your data for the UI; keep the source list intact (use computed() for derived state). -->
+
+syntax
+<!-- <ul>
+  @for (item of items(); let i = $index; track item) {
+    <li>{{ i + 1 }}. {{ item }}</li>
+  } @empty {
+    <li>No items</li>
+  }
+</ul> -->
+
+
+<h3>Lists</h3>
+    <ul>
+      @for (item of items(); let i = $index; track item) {
+        <li>{{ i + 1 }}. {{ item }}</li>
+      } @empty {
+        <li>No items</li>
+      }
+    </ul>
+    <button (click)="add()">Add Item</button>
+    <button (click)="clear()">Clear</button>
+    <button (click)="reset()">Reset</button>
+
+
+    <h3>Lists with track</h3>
+    <ul>
+      @for (it of myitems(); let i = $index; track it.id) {
+        <li>{{ i + 1 }}. {{ it.name }} (id: {{ it.id }})</li>
+      }
+    </ul>
+    <button (click)="renameFirst()">Rename first</button>
+    <button (click)="shuffle()">Shuffle</button>
+    <button (click)="addition()">Add item</button>
