@@ -1,0 +1,246 @@
+:host {
+  display: block;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.section-text {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list li {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  padding-left: 18px;
+  position: relative;
+}
+
+.info-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.pipe-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pipe-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+}
+
+.pipe-row + .pipe-row {
+  border-top: none;
+}
+
+.pipe-row:first-child {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.pipe-row:last-child {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.pipe-row:only-child {
+  border-radius: var(--radius-md);
+}
+
+.pipe-expr {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.pipe-label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.sub-heading {
+  font-size: 0.92rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--color-text-secondary);
+}
+
+.user-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.user-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+.user-list li + li {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.user-list li:hover {
+  background: var(--color-bg);
+}
+
+.user-index {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.user-name {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.status {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* ── Reference table ── */
+.ref-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.ref-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 16px;
+  font-size: 0.86rem;
+  color: var(--color-text-secondary);
+}
+
+.ref-row + .ref-row {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.ref-row:hover:not(.ref-header) {
+  background: var(--color-bg);
+}
+
+.ref-header {
+  background: var(--color-bg);
+  font-weight: 600;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.ref-header .ref-name,
+.ref-header .ref-desc {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.ref-name {
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.ref-name code {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.84em;
+  font-weight: 500;
+}
+
+.ref-desc {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Code block ── */
+.code-block {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  white-space: pre;
+}

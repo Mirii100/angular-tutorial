@@ -1,39 +1,94 @@
-<p>angular-httpclients-component works!</p>
+<div class="page-title">HttpClient</div>
+<p class="page-subtitle">Fetch, create, and handle errors from a REST API using Angular's HttpClient.</p>
 
-<h3>HttpClient</h3>
-<button (click)="load()">Load Users</button>
-<p *ngIf="loading">Loading...</p>
-<p *ngIf="error" style="color:crimson">{{ error }}</p>
-<ul>
-    <li *ngFor="let u of users">{{ u.name }} ({{ u.email }})</li>
-</ul>
-
-
-<h3>HttpClient POST</h3>
-<button (click)="createPost()" [disabled]="loading">Create Post</button>
-<p *ngIf="loading">Sending...</p>
-<p *ngIf="error" style="color:crimson">{{ error }}</p>
-<div *ngIf="result">
-    <p>Created Post ID: {{ result.id }}</p>
-    <p>Title: {{ result.title }}</p>
+<div class="card">
+  <h3>GET &mdash; Fetch Users</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    <code>HttpClient.get()</code> returns an Observable. Subscribe to it to receive the response.
+    The mock interceptor below returns two local users instead of hitting the network.
+  </p>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="load()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Load Users' }}
+    </button>
+  </div>
+  <p *ngIf="error" class="status error">{{ error }}</p>
+  <div class="table-wrapper" *ngIf="users.length">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-
-  <h3>HTTP Error Handling</h3>
-
-    <div>
-      <button (click)="loadOk()" [disabled]="loading">Load OK</button>
-      <button (click)="loadFail()" [disabled]="loading">Load Fail</button>
-      <button (click)="retry()" [disabled]="!lastAction || loading">Retry</button>
+<div class="card">
+  <h3>POST &mdash; Create a Post</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    <code>HttpClient.post()</code> sends a JSON body and returns the server response as an Observable.
+  </p>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="createPost()" [disabled]="loading">
+      {{ loading ? 'Sending...' : 'Create Post' }}
+    </button>
+  </div>
+  <p *ngIf="error" class="status error">{{ error }}</p>
+  <div class="result-box" *ngIf="result">
+    <div class="result-row">
+      <span class="result-label">Post ID:</span>
+      <span class="result-value">{{ result.id }}</span>
     </div>
+    <div class="result-row">
+      <span class="result-label">Title:</span>
+      <span class="result-value">{{ result.title }}</span>
+    </div>
+  </div>
+</div>
 
-    <p *ngIf="loading">Loading...</p>
-    <p *ngIf="error" class="error">{{ error }}</p>
-    <p *ngIf="!error && data" class="ok">Loaded {{ isArray(data) ? data.length + ' items' : '1 item' }}</p>
-
-    <ul *ngIf="isArray(data)">
-      <li *ngFor="let u of data">{{ u.name }} ({{ u.email }})</li>
-    </ul>
-
-
-    
+<div class="card">
+  <h3>Error Handling &amp; Retry</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Simulate success and failure with the mock interceptor. The <strong>Load Fail</strong> request
+    targets a non-existent URL, triggering a <code>404</code> error.
+    Use <strong>Retry</strong> to replay the last request.
+  </p>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="loadOk()" [disabled]="loading">Load OK</button>
+    <button class="btn-danger" (click)="loadFail()" [disabled]="loading">Load Fail</button>
+    <button class="btn-secondary" (click)="retry()" [disabled]="!lastAction || loading">Retry</button>
+  </div>
+  <p *ngIf="loading" class="status">Loading...</p>
+  <p *ngIf="error" class="status error">{{ error }}</p>
+  <p *ngIf="!error && data" class="status success">
+    Loaded {{ isArray(data) ? data.length + ' items' : '1 item' }}
+  </p>
+  <div class="table-wrapper" *ngIf="isArray(data)">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of data; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ u.name }}</td>
+          <td>{{ u.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

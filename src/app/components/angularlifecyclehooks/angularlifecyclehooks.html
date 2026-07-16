@@ -1,0 +1,225 @@
+<div class="page-title">Angular Lifecycle Hooks</div>
+<p class="page-subtitle">Click any hook below to expand its syntax, semantics, and live examples.</p>
+
+<!-- ───────── Live Demo (always visible) ───────── -->
+<div class="card">
+  <h3>Live Demo &mdash; Create &amp; Destroy</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Toggle the child component on and off. Each creation triggers <code>ngOnInit</code> and
+    <code>ngAfterViewInit</code>. Removal triggers <code>ngOnDestroy</code>.
+    The event log tracks every lifecycle event.
+  </p>
+  <lifecycle-parent></lifecycle-parent>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--            HOOK ACCORDION CARDS             -->
+<!-- ════════════════════════════════════════════ -->
+
+<!-- 01: ngOnChanges -->
+<div class="accordion" [class.open]="isExpanded('ngOnChanges')">
+  <button class="accordion-header" (click)="toggleSection('ngOnChanges')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">01</span>
+      <div>
+        <h3 class="accordion-title">ngOnChanges</h3>
+        <p class="accordion-desc">React to every @Input change. Fires before ngOnInit on the first run.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeNgOnChanges"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngOnChanges(changes: SimpleChanges)</code> receives a map of every input that changed.
+        Each entry has <code>previousValue</code>, <code>currentValue</code>, and <code>firstChange</code>.
+        On the very first change detection it fires <strong>before</strong> <code>ngOnInit</code>.
+        Subsequent calls happen every time the parent rebinds a value.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 02: ngOnInit -->
+<div class="accordion" [class.open]="isExpanded('ngOnInit')">
+  <button class="accordion-header" (click)="toggleSection('ngOnInit')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">02</span>
+      <div>
+        <h3 class="accordion-title">ngOnInit</h3>
+        <p class="accordion-desc">One-time setup after Angular sets the component's inputs for the first time.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeOnInit"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngOnInit()</code> runs once after the first <code>ngOnChanges</code>.
+        At this point all <code>&#64;Input</code> values are bound and ready.
+        Use it for initial data fetching, form setup, or any logic that depends on inputs.
+        It does <strong>not</strong> fire again on subsequent change-detection cycles.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 03: ngDoCheck -->
+<div class="accordion" [class.open]="isExpanded('ngDoCheck')">
+  <button class="accordion-header" (click)="toggleSection('ngDoCheck')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">03</span>
+      <div>
+        <h3 class="accordion-title">ngDoCheck</h3>
+        <p class="accordion-desc">Detect changes Angular misses, on every change-detection cycle.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeDoCheck"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngDoCheck()</code> fires on <strong>every</strong> change-detection run, not just on input changes.
+        Use it to detect mutations that Angular's default checking cannot see
+        (e.g. pushing into an array or mutating an object property).
+        Call <code>detector.detectChanges()</code> manually to flag the change.
+        Avoid heavy work here &mdash; it runs extremely often.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 04: ngAfterContentInit -->
+<div class="accordion" [class.open]="isExpanded('ngAfterContentInit')">
+  <button class="accordion-header" (click)="toggleSection('ngAfterContentInit')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">04</span>
+      <div>
+        <h3 class="accordion-title">ngAfterContentInit</h3>
+        <p class="accordion-desc">Projected content (&lt;ng-content&gt;) is ready in the DOM.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeAfterContentInit"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngAfterContentInit()</code> runs once after Angular projects external content
+        into the component via <code>&lt;ng-content&gt;</code>.
+        This is the earliest point where you can query projected children with
+        <code>&#64;ContentChildren</code>. It fires after the component's own <code>ngOnInit</code>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 05: ngAfterViewInit -->
+<div class="accordion" [class.open]="isExpanded('ngAfterViewInit')">
+  <button class="accordion-header" (click)="toggleSection('ngAfterViewInit')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">05</span>
+      <div>
+        <h3 class="accordion-title">ngAfterViewInit</h3>
+        <p class="accordion-desc">The component's view is rendered. Access &#64;ViewChild refs here.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeAfterViewInit"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngAfterViewInit()</code> runs once after Angular has fully initialised the component's view.
+        All child components and <code>&#64;ViewChild</code> / <code>&#64;ViewChildren</code> references are available.
+        Use it to interact with the DOM: focus inputs, start animations, or read element dimensions.
+        If you need to make additional change-detection runs, call <code>changeDetectorRef.detectChanges()</code>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 06: ngOnDestroy -->
+<div class="accordion" [class.open]="isExpanded('ngOnDestroy')">
+  <button class="accordion-header" (click)="toggleSection('ngOnDestroy')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">06</span>
+      <div>
+        <h3 class="accordion-title">ngOnDestroy</h3>
+        <p class="accordion-desc">Clean up subscriptions, timers, and listeners before removal.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeNgOnDestroy"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        <code>ngOnDestroy()</code> runs once right before Angular removes the component from the DOM.
+        Always unsubscribe from Observables, clear timers, detach event listeners,
+        and release any held resources here to prevent memory leaks.
+        Components wrapped in <code>*ngIf</code> or routed views will trigger this when destroyed.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 07: Lifecycle Order -->
+<div class="accordion" [class.open]="isExpanded('lifecycleOrder')">
+  <button class="accordion-header" (click)="toggleSection('lifecycleOrder')">
+    <div class="accordion-header-content">
+      <span class="accordion-number">07</span>
+      <div>
+        <h3 class="accordion-title">Lifecycle Order</h3>
+        <p class="accordion-desc">The exact sequence Angular follows when creating, updating, and destroying.</p>
+      </div>
+    </div>
+    <span class="accordion-chevron"></span>
+  </button>
+  <div class="accordion-body">
+    <div class="lecture-section">
+      <h4 class="section-label">Syntax</h4>
+      <pre class="code-block"><code [textContent]="codeLifecycleOrder"></code></pre>
+    </div>
+    <div class="lecture-section">
+      <h4 class="section-label">Semantics</h4>
+      <p class="section-text">
+        Angular runs hooks in a deterministic order: <strong>Create</strong> &rarr;
+        <code>ngOnChanges</code> &rarr; <code>ngOnInit</code> &rarr;
+        <code>ngDoCheck</code> &rarr; <code>ngAfterContentInit</code> &rarr;
+        <code>ngAfterContentChecked</code> &rarr; <code>ngAfterViewInit</code> &rarr;
+        <code>ngAfterViewChecked</code>.
+        On subsequent change-detection rounds only the <code>DoCheck</code> and
+        <code>After*Checked</code> hooks fire.
+        <code>ngOnDestroy</code> fires once when the component is destroyed.
+      </p>
+    </div>
+  </div>
+</div>

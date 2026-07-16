@@ -7,11 +7,15 @@ import { Product } from './components/product/product';
 import { Protected, authGuard, Routeguards } from './components/routeguards/routeguards';
 import { Counters } from './components/counters/counters';
 import { AngularHttpclientsComponent } from './components/angular-httpclients-component/angular-httpclients-component';
+import { Angularpipes } from './components/angularpipes/angularpipes';
+import { Angularlifecyclehooks } from './components/angularlifecyclehooks/angularlifecyclehooks';
+import { App } from './app';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'conditional-rendering',
+        //component:App,
+         redirectTo: 'conditional-rendering',
         pathMatch: 'full',
     },
     {
@@ -51,5 +55,13 @@ export const routes: Routes = [
     {
         path: 'angular-httpclients-component',
         component: AngularHttpclientsComponent,
+    },
+    {
+        path: 'angularpipes',
+        component: Angularpipes,
+    },
+    {
+        path: 'angularlifecyclehooks',
+        component: Angularlifecyclehooks,
     }
 ];

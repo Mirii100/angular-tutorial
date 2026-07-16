@@ -1,0 +1,388 @@
+<div class="page-title">Angular Pipes</div>
+<p class="page-subtitle">Transform displayed values in templates without changing the underlying data.</p>
+
+<!-- ───────── Section 1: What Are Pipes ───────── -->
+<div class="card">
+  <h3>What Are Pipes?</h3>
+  <ul class="info-list">
+    <li><strong>Formatting:</strong> Pipes format values using <code>|</code> syntax (e.g. <code>date</code>, <code>currency</code>, <code>percent</code>).</li>
+    <li><strong>Async:</strong> The <code>async</code> pipe subscribes to Observables, renders the latest value, and unsubscribes automatically.</li>
+    <li><strong>Presentation-only:</strong> Pipes change how a value is displayed, not the underlying data.</li>
+    <li><strong>Pure by default:</strong> Pure pipes run when input references change; avoid in-place mutation of arrays/objects.</li>
+  </ul>
+</div>
+
+<!-- ───────── Section 2: Basic Pipes ───────── -->
+<div class="card">
+  <h3>Basic Pipes</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Format strings, numbers, dates, and more with built-in pipes.
+    Many accept options (e.g. <code>currency:'USD'</code>, <code>date:'short'</code>).
+  </p>
+  <div class="pipe-grid">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ title | uppercase }}</span>
+      <span class="pipe-label">uppercase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ price | currency:'USD' }}</span>
+      <span class="pipe-label">currency:'USD'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ today | date:'mediumDate' }}</span>
+      <span class="pipe-label">date:'mediumDate'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ percent | percent:'1.0-2' }}</span>
+      <span class="pipe-label">percent:'1.0-2'</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Section 3: Async Pipe ───────── -->
+<div class="card">
+  <h3>Async Pipe</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Render the latest value from an Observable.
+    Unsubscribes automatically when the view is destroyed.
+  </p>
+  <div class="pipe-grid">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ time$ | async | date:'mediumTime' }}</span>
+      <span class="pipe-label">async &rarr; date:'mediumTime'</span>
+    </div>
+  </div>
+  <h4 class="sub-heading">Users (delayed 1.2s)</h4>
+  <ng-container *ngIf="users$ | async as users; else loading">
+    <ul class="user-list">
+      <li *ngFor="let u of users; let i = index">
+        <span class="user-index">{{ i + 1 }}</span>
+        <span class="user-name">{{ u.name }}</span>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #loading>
+    <p class="status">Loading...</p>
+  </ng-template>
+</div>
+
+<!-- ───────── Section 4: Custom Pipe ───────── -->
+<div class="card">
+  <h3>Custom Pipe</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Build small, reusable formatters with <code>&#64;Pipe</code>.
+    Mark as standalone and import into the component.
+    Pure by default; avoid impure pipes unless necessary.
+  </p>
+  <div class="field">
+    <label>Text input</label>
+    <input type="text" [(ngModel)]="text" placeholder="Type here">
+  </div>
+  <div class="pipe-grid" style="margin-top: 14px">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ text }}</span>
+      <span class="pipe-label">original</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ text | titlecase2 }}</span>
+      <span class="pipe-label">titlecase2 (custom)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--           REFERENCE & EXAMPLES              -->
+<!-- ════════════════════════════════════════════ -->
+
+<!-- ───────── Card: Pipe Syntax ───────── -->
+<div class="card">
+  <h3>Pipe Syntax</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Pipes use the <code>|</code> operator inside template expressions.
+    They accept zero or more colon-separated arguments and can be chained left to right.
+  </p>
+  <pre class="code-block"><code [textContent]="codeSyntax"></code></pre>
+</div>
+
+<!-- ───────── Card: Built-in Pipe Reference ───────── -->
+<div class="card">
+  <h3>Built-in Pipe Reference</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Angular ships with a set of built-in pipes organised by category.
+    All are standalone and available via <code>CommonModule</code>.
+  </p>
+
+  <h4 class="sub-heading">String Pipes</h4>
+  <div class="ref-table">
+    <div class="ref-row ref-header">
+      <span class="ref-name">Pipe</span>
+      <span class="ref-desc">Description</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>uppercase</code></span>
+      <span class="ref-desc">Converts string to UPPER CASE</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>lowercase</code></span>
+      <span class="ref-desc">Converts string to lower case</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>titlecase</code></span>
+      <span class="ref-desc">Capitalises the first letter of each word</span>
+    </div>
+  </div>
+
+  <h4 class="sub-heading">Number Pipes</h4>
+  <div class="ref-table">
+    <div class="ref-row ref-header">
+      <span class="ref-name">Pipe</span>
+      <span class="ref-desc">Description</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>number</code></span>
+      <span class="ref-desc">Formats a number as a decimal string (e.g. <code>1,234,567.89</code>)</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>percent</code></span>
+      <span class="ref-desc">Multiplies by 100 and appends <code>%</code></span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>currency</code></span>
+      <span class="ref-desc">Formats as currency with symbol (e.g. <code>$1,234.50</code>)</span>
+    </div>
+  </div>
+
+  <h4 class="sub-heading">Date Pipe</h4>
+  <div class="ref-table">
+    <div class="ref-row ref-header">
+      <span class="ref-name">Format</span>
+      <span class="ref-desc">Example output</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'short'</code></span>
+      <span class="ref-desc">6/15/25, 9:03 AM</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'medium'</code></span>
+      <span class="ref-desc">Jun 15, 2025, 9:03:01 AM</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'long'</code></span>
+      <span class="ref-desc">June 15, 2025 at 9:03:01 AM GMT+0</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'fullDate'</code></span>
+      <span class="ref-desc">Sunday, June 15, 2025</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'shortDate'</code></span>
+      <span class="ref-desc">6/15/25</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'mediumDate'</code></span>
+      <span class="ref-desc">Jun 15, 2025</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'shortTime'</code></span>
+      <span class="ref-desc">9:03 AM</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>'mediumTime'</code></span>
+      <span class="ref-desc">9:03:01 AM</span>
+    </div>
+  </div>
+
+  <h4 class="sub-heading">Other Pipes</h4>
+  <div class="ref-table">
+    <div class="ref-row ref-header">
+      <span class="ref-name">Pipe</span>
+      <span class="ref-desc">Description</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>json</code></span>
+      <span class="ref-desc">Serialises an object to a JSON string (useful for debugging)</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>slice</code></span>
+      <span class="ref-desc">Returns a shallow copy of a portion of an array or string</span>
+    </div>
+    <div class="ref-row">
+      <span class="ref-name"><code>async</code></span>
+      <span class="ref-desc">Subscribes to an Observable/Promise and returns the latest value</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Card: String Pipes ───────── -->
+<div class="card">
+  <h3>String Pipes &mdash; Live Examples</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Transform text with <code>uppercase</code>, <code>lowercase</code>, and <code>titlecase</code>.
+    Type into the input to see all three at once.
+  </p>
+  <div class="field">
+    <label>Input string</label>
+    <input type="text" [(ngModel)]="strInput" placeholder="Type something">
+  </div>
+  <div class="pipe-grid" style="margin-top: 14px">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ strInput | uppercase }}</span>
+      <span class="pipe-label">uppercase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ strInput | lowercase }}</span>
+      <span class="pipe-label">lowercase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ strInput | titlecase }}</span>
+      <span class="pipe-label">titlecase</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Card: Number Pipes ───────── -->
+<div class="card">
+  <h3>Number Pipes &mdash; Live Examples</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Format numbers with <code>number</code>, <code>percent</code>, and <code>currency</code>.
+    Adjust the value with the slider.
+  </p>
+  <div class="field">
+    <label>Number value &mdash; <code>{{ numValue | number:'1.0-4' }}</code></label>
+    <input type="range" min="0" max="10000000" step="100" [value]="numValue"
+      (input)="numValue = +$any($event.target).value">
+  </div>
+  <div class="pipe-grid" style="margin-top: 14px">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | number:'1.0-0' }}</span>
+      <span class="pipe-label">number:'1.0-0'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | number:'1.2-4' }}</span>
+      <span class="pipe-label">number:'1.2-4'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | percent:'1.1-2' }}</span>
+      <span class="pipe-label">percent:'1.1-2'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | currency:'USD':'symbol':'1.2-2' }}</span>
+      <span class="pipe-label">currency:'USD'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | currency:'EUR':'symbol':'1.2-2' }}</span>
+      <span class="pipe-label">currency:'EUR'</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ numValue | currency:'GBP':'symbol-narrow':'1.0-0' }}</span>
+      <span class="pipe-label">currency:'GBP' narrow</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Card: Date Pipe ───────── -->
+<div class="card">
+  <h3>Date Pipe &mdash; Live Examples</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    The <code>date</code> pipe accepts preset format strings or custom patterns.
+    The live clock updates every second via the <code>async</code> pipe.
+  </p>
+  <div class="pipe-grid">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'short' }}</span>
+      <span class="pipe-label">short</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'medium' }}</span>
+      <span class="pipe-label">medium</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'long' }}</span>
+      <span class="pipe-label">long</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'fullDate' }}</span>
+      <span class="pipe-label">fullDate</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'shortDate' }}</span>
+      <span class="pipe-label">shortDate</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'mediumDate' }}</span>
+      <span class="pipe-label">mediumDate</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'shortTime' }}</span>
+      <span class="pipe-label">shortTime</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'mediumTime' }}</span>
+      <span class="pipe-label">mediumTime</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ dateValue | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+      <span class="pipe-label">custom pattern</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Card: Json Pipe ───────── -->
+<div class="card">
+  <h3>Json Pipe &mdash; Debugging</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    The <code>json</code> pipe serialises any value into a readable JSON string.
+    Useful for quick debugging in templates.
+  </p>
+  <pre class="code-block"><code [textContent]="jsonObject | json"></code></pre>
+</div>
+
+<!-- ───────── Card: Chaining Pipes ───────── -->
+<div class="card">
+  <h3>Chaining Pipes</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Combine multiple pipes by chaining them. Evaluation flows left to right:
+    the output of one pipe becomes the input of the next.
+  </p>
+  <div class="field">
+    <label>Input text</label>
+    <input type="text" [(ngModel)]="chainText" placeholder="Type something">
+  </div>
+  <div class="pipe-grid" style="margin-top: 14px">
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ chainText }}</span>
+      <span class="pipe-label">original</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ chainText | uppercase }}</span>
+      <span class="pipe-label">uppercase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ chainText | titlecase }}</span>
+      <span class="pipe-label">titlecase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ chainText | uppercase | slice:0:15 }}</span>
+      <span class="pipe-label">uppercase &rarr; slice:0:15</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ chainText | lowercase | titlecase }}</span>
+      <span class="pipe-label">lowercase &rarr; titlecase</span>
+    </div>
+    <div class="pipe-row">
+      <span class="pipe-expr">{{ (numValue | currency:'USD':'symbol':'1.2-2') }}</span>
+      <span class="pipe-label">number &rarr; currency</span>
+    </div>
+  </div>
+</div>
+
+<!-- ───────── Card: Creating a Custom Pipe ───────── -->
+<div class="card">
+  <h3>Creating a Custom Pipe</h3>
+  <p class="section-text" style="margin-bottom: 16px">
+    Use the <code>&#64;Pipe</code> decorator to create your own. The <code>transform</code> method
+    receives the input value followed by any arguments. Mark as <code>standalone: true</code> and
+    import it into any component that needs it.
+  </p>
+  <pre class="code-block"><code [textContent]="codeCustomPipe"></code></pre>
+</div>
