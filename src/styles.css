@@ -7,31 +7,47 @@
 }
 
 :root {
-  --color-bg: #f5f7fa;
+  --color-bg: #f8fafc;
   --color-surface: #ffffff;
-  --color-primary: #3b82f6;
-  --color-primary-dark: #2563eb;
-  --color-primary-light: #dbeafe;
-  --color-text: #1e293b;
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-primary-light: #e0e7ff;
+  --color-primary-hover: #818cf8;
+  --color-text: #0f172a;
+  --color-text-secondary: #334155;
   --color-text-muted: #64748b;
   --color-border: #e2e8f0;
-  --color-success: #16a34a;
+  --color-border-light: #f1f5f9;
+  --color-success: #059669;
+  --color-success-bg: #ecfdf5;
+  --color-success-border: #a7f3d0;
   --color-error: #dc2626;
-  --color-warning: #f59e0b;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-warning-border: #fde68a;
   --radius: 8px;
-  --radius-lg: 12px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
   font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
@@ -41,16 +57,17 @@ body {
 a {
   color: var(--color-primary);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--color-primary-dark);
-  text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3;
   font-weight: 600;
+  color: var(--color-text);
 }
 
 button, input, select, textarea {
@@ -61,9 +78,19 @@ button {
   cursor: pointer;
   border: none;
   border-radius: var(--radius);
-  padding: 8px 16px;
+  padding: 8px 18px;
   font-weight: 500;
-  transition: background-color 0.15s, box-shadow 0.15s;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 input[type="text"],
@@ -71,13 +98,14 @@ input[type="email"],
 input[type="number"],
 input[type="password"],
 select {
-  padding: 8px 12px;
-  border: 1px solid var(--color-border);
+  padding: 9px 14px;
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   color: var(--color-text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   width: 100%;
+  font-size: 0.9rem;
 }
 
 input[type="text"]:focus,
@@ -87,15 +115,20 @@ input[type="password"]:focus,
 select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-light);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }
 
 label {
   display: block;
   font-weight: 500;
-  margin-bottom: 4px;
-  color: var(--color-text);
-  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
 }
 
 table {
@@ -105,17 +138,21 @@ table {
 
 th, td {
   border: 1px solid var(--color-border);
-  padding: 10px 12px;
+  padding: 10px 14px;
   text-align: left;
 }
 
 th {
   background: var(--color-bg);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   color: var(--color-text-muted);
+}
+
+tr:hover td {
+  background: var(--color-bg);
 }
 
 hr {
@@ -127,7 +164,13 @@ hr {
 code {
   background: var(--color-primary-light);
   color: var(--color-primary-dark);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.9em;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 0.88em;
+  font-weight: 500;
+}
+
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
 }

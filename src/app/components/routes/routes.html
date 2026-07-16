@@ -1,0 +1,13 @@
+<div class="page-title">Routing</div>
+<p class="page-subtitle">Navigate between routes and inspect route parameters.</p>
+
+<div class="card">
+  <h3>Product Routes</h3>
+  <p class="muted" style="margin-bottom: 16px">Click a product link below to navigate to a dynamic route with an <code>:id</code> parameter.</p>
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/product/1" routerLinkActive="active">Product 1</a>
+    <a routerLink="/product/2" routerLinkActive="active">Product 2</a>
+    <a routerLink="/product/42" routerLinkActive="active">Product 42</a>
+  </nav>
+</div>

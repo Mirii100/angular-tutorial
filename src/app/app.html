@@ -5,6 +5,10 @@
     <a routerLink="/conditional-rendering" routerLinkActive="active">Conditional Rendering</a>
     <a routerLink="/about" routerLinkActive="active">About</a>
     <a routerLink="/forms" routerLinkActive="active">Forms</a>
+    <a routerLink="/routes" routerLinkActive="active">Routes</a>
+ <a routerLink="/product/1" routerLinkActive="active">Product 1</a>
+    <a routerLink="/product/2" routerLinkActive="active">Product 2</a>
+    <a routerLink="/product/42" routerLinkActive="active">Product 42</a>  
   </div>
 </nav>
 
@@ -29,11 +33,11 @@
     <div class="form-row">
       <div class="field">
         <label>First Name</label>
-        <input type="text" [(ngModel)]="firstName" placeholder="Enter first name">
+        <input type="text" [value]="firstName" (input)="firstName = $event.target.value" placeholder="Enter first name">
       </div>
       <div class="field">
         <label>Last Name</label>
-        <input type="text" [(ngModel)]="lastName" placeholder="Enter last name">
+        <input type="text" [value]="lastName" (input)="lastName = $event.target.value" placeholder="Enter last name">
       </div>
     </div>
     <button class="btn-primary" (click)="clickMe(firstName, lastName)">Click Me</button>
@@ -45,11 +49,11 @@
     <div class="form-row">
       <div class="field">
         <label>Quantity</label>
-        <input type="number" [(ngModel)]="quantity" min="0">
+        <input type="number" [value]="quantity" (input)="quantity = $any($event.target).valueAsNumber" min="0">
       </div>
       <div class="field">
         <label>Price</label>
-        <input type="number" [(ngModel)]="price" min="0">
+        <input type="number" [value]="price" (input)="price = $any($event.target).valueAsNumber" min="0">
       </div>
     </div>
     <p class="result highlight">Total: ${{ (quantity || 0) * (price || 0) }}</p>
@@ -82,7 +86,8 @@
     <h2>Built-in Pipes</h2>
     <div class="field">
       <label>Today:</label>
-      <p class="result">{{ today.getFullYear() }}-{{ (today.getMonth()+1) < 10 ? ('0'+(today.getMonth()+1)) : (today.getMonth()+1) }}-{{ today.getDate() < 10 ? ('0'+today.getDate()) : today.getDate() }}</p>
+      <p class="result">{{ today.getFullYear() }}-{{ (today.getMonth()+1) < 10 ? ('0'+(today.getMonth()+1)) :
+          (today.getMonth()+1) }}-{{ today.getDate() < 10 ? ('0'+today.getDate()) : today.getDate() }}</p>
     </div>
     <div class="field">
       <label>Username:</label>
@@ -102,7 +107,11 @@
     <div class="table-wrapper">
       <table>
         <thead>
-          <tr><th>A</th><th>B</th><th>C</th></tr>
+          <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
@@ -166,13 +175,18 @@
       </div>
       <div class="field inline">
         <label>Title</label>
-        <input type="text" [value]="titleLocal" (input)="titleLocal = $any($event.target).value" placeholder="Enter table title">
+        <input type="text" [value]="titleLocal" (input)="titleLocal = $any($event.target).value"
+          placeholder="Enter table title">
       </div>
     </div>
     <div class="table-wrapper">
       <table [attr.title]="titleLocal">
         <thead>
-          <tr><th>A</th><th>B</th><th>C</th></tr>
+          <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+          </tr>
         </thead>
         <tbody>
           <tr>

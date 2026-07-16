@@ -1,22 +1,22 @@
-import { Component,signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-forms',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './forms.html',
   styleUrl: './forms.css',
 })
 export class Forms {
- name = '';
- model = { name: '', email: '' };
+  name = '';
+  model = { name: '', email: '' };
   submitted = false;
-  onSubmit() { this.submitted = true; }
+  onSubmit() {
+    this.submitted = true;
+  }
 
   fb = new FormBuilder();
-
-
 
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -24,5 +24,7 @@ export class Forms {
     newsletter: [false],
   });
 
-  onSubmited() { this.submitted = true; }
+  onSubmited() {
+    this.submitted = true;
+  }
 }

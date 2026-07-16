@@ -1,6 +1,6 @@
-import { Component, signal, Directive, Input, HostBinding, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, signal, Directive, HostBinding, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { RouterModule } from '@angular/router';
-//import { ConditionalRenderingComponent } from './components/conditional-rendering/conditional-rendering';
+import { CommonModule } from '@angular/common';
 
 
 type Item = { id: number; name: string };
@@ -24,7 +24,7 @@ export class W3HighlightDirective {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, ConditionalRendering, W3HighlightDirective],
+  imports: [RouterModule, CommonModule, W3HighlightDirective],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   standalone: true
@@ -55,13 +55,6 @@ export class App {
   quantity: number | undefined;
   price: number | undefined;
 
-  //directives 
-  @Input('w3Highlight') highlightColor = 'lightyellow';
-  @HostBinding('style.transition') transition = 'background-color 150ms ease-in-out';
-  @HostBinding('style.backgroundColor') bg = '';
-
-  @HostListener('mouseenter') onEnter() { this.bg = this.highlightColor; }
-  @HostListener('mouseleave') onLeave() { this.bg = ''; }
   names = [
     { name: 'Jani', country: 'Norway' },
     { name: 'Hege', country: 'Sweden' },
@@ -126,9 +119,6 @@ export class App {
   }
   clear() { this.todoItems = []; }
 }
-
-import { bootstrapApplication } from '@angular/platform-browser';
-import { ConditionalRendering } from './components/conditional-rendering/conditional-rendering';
 
 @Component({
   selector: 'counter-button',

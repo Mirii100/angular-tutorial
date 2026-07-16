@@ -1,19 +1,20 @@
 :host {
   display: block;
-  max-width: 820px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 28px 20px;
 }
 
 .page-title {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
 }
 
 .page-subtitle {
   color: var(--color-text-muted);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   font-size: 0.95rem;
 }
 
@@ -21,49 +22,52 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-bottom: 16px;
+  padding: 28px;
+  margin-bottom: 20px;
   box-shadow: var(--shadow-sm);
 }
 
 .card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border);
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .message-box {
-  padding: 16px;
-  border-radius: var(--radius);
-  margin: 12px 0;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  margin: 14px 0;
   font-weight: 500;
   text-align: center;
+  transition: all var(--transition);
 }
 
 .message-box.visible {
-  background: #dcfce7;
+  background: var(--color-success-bg);
   color: #166534;
-  border: 1px solid #bbf7d0;
+  border: 1px solid var(--color-success-border);
 }
 
 .message-box.hidden {
-  background: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
 }
 
 .btn-primary {
   background: var(--color-primary);
   color: white;
-  padding: 8px 20px;
+  padding: 9px 22px;
   border-radius: var(--radius);
   font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all var(--transition-fast);
+  box-shadow: 0 1px 2px rgba(99, 102, 241, 0.25);
 }
 
 .btn-primary:hover {
   background: var(--color-primary-dark);
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
 }
