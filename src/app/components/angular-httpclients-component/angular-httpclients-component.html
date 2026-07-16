@@ -1,0 +1,39 @@
+<p>angular-httpclients-component works!</p>
+
+<h3>HttpClient</h3>
+<button (click)="load()">Load Users</button>
+<p *ngIf="loading">Loading...</p>
+<p *ngIf="error" style="color:crimson">{{ error }}</p>
+<ul>
+    <li *ngFor="let u of users">{{ u.name }} ({{ u.email }})</li>
+</ul>
+
+
+<h3>HttpClient POST</h3>
+<button (click)="createPost()" [disabled]="loading">Create Post</button>
+<p *ngIf="loading">Sending...</p>
+<p *ngIf="error" style="color:crimson">{{ error }}</p>
+<div *ngIf="result">
+    <p>Created Post ID: {{ result.id }}</p>
+    <p>Title: {{ result.title }}</p>
+</div>
+
+
+  <h3>HTTP Error Handling</h3>
+
+    <div>
+      <button (click)="loadOk()" [disabled]="loading">Load OK</button>
+      <button (click)="loadFail()" [disabled]="loading">Load Fail</button>
+      <button (click)="retry()" [disabled]="!lastAction || loading">Retry</button>
+    </div>
+
+    <p *ngIf="loading">Loading...</p>
+    <p *ngIf="error" class="error">{{ error }}</p>
+    <p *ngIf="!error && data" class="ok">Loaded {{ isArray(data) ? data.length + ' items' : '1 item' }}</p>
+
+    <ul *ngIf="isArray(data)">
+      <li *ngFor="let u of data">{{ u.name }} ({{ u.email }})</li>
+    </ul>
+
+
+    

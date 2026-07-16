@@ -1,0 +1,35 @@
+<p>routeguards works!</p>
+
+<h3>Route Guard (canActivate)</h3>
+<div class="toolbar">
+    <button (click)="toggle()">{{ loggedIn ? 'Log out' : 'Log in' }}</button>
+    <span class="status">Status: {{ loggedIn ? 'Logged in' : 'Logged out' }}</span>
+</div>
+<nav>
+    <a routerLink="/">Home</a>
+    <a routerLink="/protected">Protected</a>
+</nav>
+<div class="outlet-placeholder"></div>
+
+Angular Services & Dependency Injection
+
+What: A service holds reusable logic/state. DI (dependency injection) supplies instances where needed.
+
+Scope: Provide in root for a shared singleton, or provide in a component for isolated instances.
+
+Use cases: Data fetching, caching, business rules, cross-component state.
+
+<h3>Services</h3>
+    <p>Counter: {{ counter.value }}</p>
+    <button (click)="counter.inc()">+</button>
+    <button (click)="counter.dec()">-</button>
+    <button (click)="counter.reset()">Reset</button>
+
+
+    Shared Service Across Components
+providedIn: 'root' shares one instance across the app.
+Updating in one component reflects in others using the same service.
+
+
+
+

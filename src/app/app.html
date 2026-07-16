@@ -6,9 +6,12 @@
     <a routerLink="/about" routerLinkActive="active">About</a>
     <a routerLink="/forms" routerLinkActive="active">Forms</a>
     <a routerLink="/routes" routerLinkActive="active">Routes</a>
- <a routerLink="/product/1" routerLinkActive="active">Product 1</a>
-    <a routerLink="/product/2" routerLinkActive="active">Product 2</a>
-    <a routerLink="/product/42" routerLinkActive="active">Product 42</a>  
+    <a routerLink="/product/1" routerLinkActive="active">Product</a>
+    <a routerLink="/protected" routerLinkActive="active">Protected</a>
+    <a routerLink="/routeguards" routerLinkActive="active">Route Guards</a>
+ <a routerLink="/counters" routerLinkActive="active">Counters</a>
+<a routerLink="/angular-httpclients-component" routerLinkActive="active">HttpClient</a>
+ 
   </div>
 </nav>
 
@@ -16,274 +19,584 @@
 
 <main class="main">
 
-  <section class="card">
-    <h2>Data Binding</h2>
-    <div class="field">
-      <label>Third item in array:</label>
-      <p class="result">{{ points[3] }}</p>
-    </div>
-    <div class="field">
-      <label>Third result:</label>
-      <p class="result">{{ points[2] }}</p>
-    </div>
-  </section>
+  <div class="page-header">
+    <h1 class="page-title">Angular Fundamentals</h1>
+    <p class="page-subtitle">Click any lecture below to expand its syntax, semantics, and live examples.</p>
+  </div>
 
-  <section class="card">
-    <h2>Input Binding</h2>
-    <div class="form-row">
-      <div class="field">
-        <label>First Name</label>
-        <input type="text" [value]="firstName" (input)="firstName = $event.target.value" placeholder="Enter first name">
+  <!-- 01: Interpolation -->
+  <div class="accordion" [class.open]="isExpanded('interpolation')">
+    <button class="accordion-header" (click)="toggleSection('interpolation')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">01</span>
+        <div>
+          <h3 class="accordion-title">Interpolation &amp; Expression Binding</h3>
+          <p class="accordion-desc">Display component data in the template using double curly braces.</p>
+        </div>
       </div>
-      <div class="field">
-        <label>Last Name</label>
-        <input type="text" [value]="lastName" (input)="lastName = $event.target.value" placeholder="Enter last name">
-      </div>
-    </div>
-    <button class="btn-primary" (click)="clickMe(firstName, lastName)">Click Me</button>
-    <p class="result" *ngIf="firstName">You wrote: {{ firstName }}</p>
-  </section>
-
-  <section class="card">
-    <h2>Calculator</h2>
-    <div class="form-row">
-      <div class="field">
-        <label>Quantity</label>
-        <input type="number" [value]="quantity" (input)="quantity = $any($event.target).valueAsNumber" min="0">
-      </div>
-      <div class="field">
-        <label>Price</label>
-        <input type="number" [value]="price" (input)="price = $any($event.target).valueAsNumber" min="0">
-      </div>
-    </div>
-    <p class="result highlight">Total: ${{ (quantity || 0) * (price || 0) }}</p>
-  </section>
-
-  <section class="card">
-    <h2>Names Array</h2>
-    <p class="muted">Total items: {{ names.length }}</p>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Country</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let person of names; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.country }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Built-in Pipes</h2>
-    <div class="field">
-      <label>Today:</label>
-      <p class="result">{{ today.getFullYear() }}-{{ (today.getMonth()+1) < 10 ? ('0'+(today.getMonth()+1)) :
-          (today.getMonth()+1) }}-{{ today.getDate() < 10 ? ('0'+today.getDate()) : today.getDate() }}</p>
-    </div>
-    <div class="field">
-      <label>Username:</label>
-      <p class="result">{{ name }}</p>
-    </div>
-    <div class="field">
-      <label>Ratio:</label>
-      <p class="result">{{ (ratio || 0).toFixed(2) }}</p>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Attribute Binding</h2>
-    <div class="toolbar">
-      <button class="btn-secondary" [attr.aria-label]="label" (click)="toggle()">{{ label }}</button>
-    </div>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>A</th>
-            <th>B</th>
-            <th>C</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td [attr.colspan]="wide ? 2 : 1">Row 1</td>
-            <td>Cell</td>
-            <td>Cell</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>TrackBy & Shuffle</h2>
-    <button class="btn-secondary" (click)="shuffle()">Shuffle</button>
-    <ul class="item-list">
-      <li *ngFor="let it of items; trackBy: trackById">{{ it.id }} - {{ it.name }}</li>
-    </ul>
-  </section>
-
-  <section class="card">
-    <h2>Data Binding</h2>
-    <div class="field">
-      <label>Your Name</label>
-      <input type="text" [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
-    </div>
-    <p class="result">Hello {{ name }}!</p>
-    <div class="toolbar">
-      <button class="btn-primary" (click)="count = count + 1">Clicked {{ count }} times</button>
-      <button class="btn-disabled" [disabled]="isDisabled">Can't click me</button>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Two-way Binding</h2>
-    <div class="form-row">
-      <div class="field">
-        <label>Name</label>
-        <input type="text" [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
-      </div>
-      <div class="field">
-        <label>Favorite</label>
-        <select [value]="favorite" (change)="favorite = $any($event.target).value">
-          <option value="Angular">Angular</option>
-          <option value="TypeScript">TypeScript</option>
-          <option value="JavaScript">JavaScript</option>
-        </select>
-      </div>
-    </div>
-    <p class="result">Hello {{ name || 'friend' }}!</p>
-    <p class="result muted">Favorite: {{ favorite }}</p>
-  </section>
-
-  <section class="card">
-    <h2>Attribute Binding (Advanced)</h2>
-    <div class="toolbar">
-      <div class="field inline">
-        <label>Colspan</label>
-        <input type="range" min="1" max="3" [value]="span" (input)="span = +$any($event.target).value">
-        <span class="badge">{{ span }}</span>
-      </div>
-      <div class="field inline">
-        <label>Title</label>
-        <input type="text" [value]="titleLocal" (input)="titleLocal = $any($event.target).value"
-          placeholder="Enter table title">
-      </div>
-    </div>
-    <div class="table-wrapper">
-      <table [attr.title]="titleLocal">
-        <thead>
-          <tr>
-            <th>A</th>
-            <th>B</th>
-            <th>C</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td [attr.colspan]="span" style="background:#f0f7ff">colspan={{ span }}</td>
-            <td *ngIf="span < 2">B</td>
-            <td *ngIf="span < 3">C</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Directives</h2>
-    <p class="muted" *ngIf="items.length > 0">We have {{ items.length }} items</p>
-    <ul class="item-list">
-      <li *ngFor="let item of items">{{ item }}</li>
-    </ul>
-    <button class="btn-secondary" (click)="toggle()">Toggle Items</button>
-  </section>
-
-  <section class="card">
-    <h2>ngIf with else</h2>
-    <button class="btn-primary" (click)="loggedIn = !loggedIn">
-      {{ loggedIn ? 'Log out' : 'Log in' }}
+      <span class="accordion-chevron"></span>
     </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeInterpolation"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Double curly braces evaluate a TypeScript expression and convert the result to a string.
+          Angular watches the component for changes and re-renders the text automatically.
+          You can use any valid JS expression: arithmetic, ternaries, method calls, and property access.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="field">
+            <label>Third item in array:</label>
+            <p class="result">{{ points[3] }}</p>
+          </div>
+          <div class="field">
+            <label>Third result:</label>
+            <p class="result">{{ points[2] }}</p>
+          </div>
+          <div class="field">
+            <label>Ratio formatted:</label>
+            <p class="result">{{ (ratio || 0).toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <ng-container *ngIf="loggedIn; else loggedOut">
-      <p class="result success">Welcome back, {{ user }}!</p>
-    </ng-container>
-
-    <ng-template #loggedOut>
-      <p class="result muted">Please log in to continue.</p>
-    </ng-template>
-  </section>
-
-  <section class="card">
-    <h2>ngIf then/else</h2>
-    <button class="btn-secondary" (click)="hasAccess = !hasAccess">
-      Toggle Access ({{ hasAccess ? 'granted' : 'denied' }})
+  <!-- 02: Property Binding -->
+  <div class="accordion" [class.open]="isExpanded('property-binding')">
+    <button class="accordion-header" (click)="toggleSection('property-binding')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">02</span>
+        <div>
+          <h3 class="accordion-title">Property Binding</h3>
+          <p class="accordion-desc">Bind component values to DOM element properties using square brackets.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
     </button>
-
-    <ng-container *ngIf="hasAccess; then accessTpl; else noAccessTpl"></ng-container>
-
-    <ng-template #accessTpl>
-      <p class="result success">Access granted.</p>
-    </ng-template>
-    <ng-template #noAccessTpl>
-      <p class="result error">Access denied.</p>
-    </ng-template>
-  </section>
-
-  <section class="card">
-    <h2>Attribute Directive (Highlight)</h2>
-    <p class="muted">Hover the first box to see the effect:</p>
-    <div class="box" w3Highlight="lightyellow">I get highlighted on hover</div>
-    <div class="box" style="margin-top: 8px">I do not</div>
-  </section>
-
-  <section class="card">
-    <h2>Events</h2>
-    <p class="result">Count: {{ count }}</p>
-    <button class="btn-primary" (click)="increment()">Click me</button>
-
-    <div class="field" style="margin-top: 16px">
-      <label>Type something</label>
-      <input type="text" placeholder="Type..." (input)="onInput($event)" (keyup)="lastKey = $any($event).key">
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codePropertyBinding"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Square brackets <code>[property]</code> tell Angular to evaluate the expression on the right
+          and assign the result to the DOM property on the left. This is one-way binding from
+          component to view. The binding updates whenever the component state changes.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="form-row">
+            <div class="field">
+              <label>First Name</label>
+              <input type="text" [value]="firstName" (input)="firstName = $event.target.value"
+                placeholder="Enter first name">
+            </div>
+            <div class="field">
+              <label>Last Name</label>
+              <input type="text" [value]="lastName" (input)="lastName = $event.target.value"
+                placeholder="Enter last name">
+            </div>
+          </div>
+          <button class="btn-primary" (click)="clickMe(firstName, lastName)">Click Me</button>
+          <p class="result" *ngIf="firstName">You wrote: {{ firstName }}</p>
+        </div>
+      </div>
     </div>
-    <div class="result-row">
-      <p class="result">Value: {{ value }}</p>
-      <p class="result">Last key: {{ lastKey }}</p>
-    </div>
-  </section>
+  </div>
 
-  <section class="card">
-    <h2>Event Filtering (keyup.enter)</h2>
-    <div class="toolbar">
-      <input type="text" placeholder="Add item and press Enter" [value]="draft"
-        (input)="draft = $any($event.target).value" (keyup.enter)="add()">
-      <button class="btn-primary" (click)="add()">Add</button>
-      <button class="btn-secondary" (click)="clear()">Clear</button>
+  <!-- 03: Event Binding -->
+  <div class="accordion" [class.open]="isExpanded('event-binding')">
+    <button class="accordion-header" (click)="toggleSection('event-binding')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">03</span>
+        <div>
+          <h3 class="accordion-title">Event Binding</h3>
+          <p class="accordion-desc">Respond to user actions like clicks, input, and key presses.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeEventBinding"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Parentheses <code>(event)</code> bind a DOM event to a component method.
+          Angular listens for the native event and calls your handler.
+          The <code>$event</code> object is the native DOM event.
+          Modifiers like <code>.enter</code>, <code>.blur</code>, or <code>.debounce(400)</code>
+          filter or transform when the handler fires.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <p class="result">Count: {{ count }}</p>
+          <button class="btn-primary" (click)="increment()">Click me</button>
+          <div class="field" style="margin-top: 16px">
+            <label>Type something</label>
+            <input type="text" placeholder="Type..." (input)="onInput($event)" (keyup)="lastKey = $any($event).key">
+          </div>
+          <div class="result-row">
+            <p class="result">Value: {{ value }}</p>
+            <p class="result">Last key: {{ lastKey }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <ul class="item-list">
-      <li *ngFor="let it of todoItems; let i = index">{{ i + 1 }}. {{ it }}</li>
-    </ul>
-  </section>
+  </div>
 
-  <section class="card">
-    <h2>Debounced Input</h2>
-    <div class="field">
-      <label>Type here</label>
-      <input type="text" placeholder="Type here" (input)="onInput1($event)">
+  <!-- 04: Two-way Binding -->
+  <div class="accordion" [class.open]="isExpanded('two-way')">
+    <button class="accordion-header" (click)="toggleSection('two-way')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">04</span>
+        <div>
+          <h3 class="accordion-title">Two-way Binding &amp; Calculator</h3>
+          <p class="accordion-desc">Sync input values with component state for live calculations.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeTwoWayBinding"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Two-way binding combines property binding <code>[value]</code> with event binding
+          <code>(input)</code> to keep the model and view in sync. When the user types,
+          the event handler updates the component property, which re-renders the view.
+          Angular also offers <code>[(ngModel)]</code> with <code>FormsModule</code> for shorthand.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="form-row">
+            <div class="field">
+              <label>Quantity</label>
+              <input type="number" [value]="quantity" (input)="quantity = $any($event.target).valueAsNumber" min="0">
+            </div>
+            <div class="field">
+              <label>Price</label>
+              <input type="number" [value]="price" (input)="price = $any($event.target).valueAsNumber" min="0">
+            </div>
+          </div>
+          <p class="result highlight">Total: ${{ (quantity || 0) * (price || 0) }}</p>
+          <hr>
+          <div class="form-row">
+            <div class="field">
+              <label>Name</label>
+              <input type="text" [value]="name" (input)="name = $any($event.target).value" placeholder="Type your name">
+            </div>
+            <div class="field">
+              <label>Favorite</label>
+              <select [value]="favorite" (change)="favorite = $any($event.target).value">
+                <option value="Angular">Angular</option>
+                <option value="TypeScript">TypeScript</option>
+                <option value="JavaScript">JavaScript</option>
+              </select>
+            </div>
+          </div>
+          <p class="result">Hello {{ name || 'friend' }}!</p>
+          <p class="result muted">Favorite: {{ favorite }}</p>
+        </div>
+      </div>
     </div>
-    <div class="result-row">
-      <p class="result">Immediate: {{ immediate }}</p>
-      <p class="result">Debounced (400ms): {{ debounced }}</p>
+  </div>
+
+  <!-- 05: *ngIf -->
+  <div class="accordion" [class.open]="isExpanded('ngif')">
+    <button class="accordion-header" (click)="toggleSection('ngif')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">05</span>
+        <div>
+          <h3 class="accordion-title">*ngIf &mdash; Conditional Rendering</h3>
+          <p class="accordion-desc">Show or hide elements based on a boolean condition.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeNgIf"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          <code>*ngIf</code> adds or removes an element from the DOM based on a truthy/falsy expression.
+          When false, the element is completely removed (not hidden).
+          The <code>else</code> clause references an <code>ng-template</code> to render when false.
+          The <code>then; else</code> syntax lets you specify both templates explicitly.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <button class="btn-primary" (click)="loggedIn = !loggedIn">
+            {{ loggedIn ? 'Log out' : 'Log in' }}
+          </button>
+          <ng-container *ngIf="loggedIn; else loggedOut">
+            <p class="result success">Welcome back, {{ user }}!</p>
+          </ng-container>
+          <ng-template #loggedOut>
+            <p class="result muted">Please log in to continue.</p>
+          </ng-template>
+          <hr>
+          <button class="btn-secondary" (click)="hasAccess = !hasAccess">
+            Toggle Access ({{ hasAccess ? 'granted' : 'denied' }})
+          </button>
+          <ng-container *ngIf="hasAccess; then accessTpl; else noAccessTpl"></ng-container>
+          <ng-template #accessTpl>
+            <p class="result success">Access granted.</p>
+          </ng-template>
+          <ng-template #noAccessTpl>
+            <p class="result error">Access denied.</p>
+          </ng-template>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <!-- 06: *ngFor -->
+  <div class="accordion" [class.open]="isExpanded('ngfor')">
+    <button class="accordion-header" (click)="toggleSection('ngfor')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">06</span>
+        <div>
+          <h3 class="accordion-title">*ngFor &mdash; List Rendering &amp; TrackBy</h3>
+          <p class="accordion-desc">Render lists with indexing, and optimize with trackBy for DOM reuse.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeNgFor"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          <code>*ngFor</code> iterates over an array and stamps out a template per item.
+          Angular tracks each item by identity. When the array reference changes,
+          it diffs and updates the DOM. <code>trackBy</code> provides a stable key
+          (like <code>item.id</code>) so Angular reuses existing DOM nodes instead of
+          recreating them, preserving focus, animations, and input state.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <p class="muted">Total items: {{ names.length }}</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of names; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ person.name }}</td>
+                  <td>{{ person.country }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <button class="btn-secondary" (click)="shuffle()">Shuffle</button>
+          <ul class="item-list">
+            <li *ngFor="let it of items; trackBy: trackById">{{ it.id }} - {{ it.name }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07: Attribute Binding -->
+  <div class="accordion" [class.open]="isExpanded('attr-binding')">
+    <button class="accordion-header" (click)="toggleSection('attr-binding')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">07</span>
+        <div>
+          <h3 class="accordion-title">Attribute Binding</h3>
+          <p class="accordion-desc">Bind to HTML attributes like colspan, aria-label, and title.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeAttrBinding"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Use <code>[attr.name]</code> when you need to bind to an HTML attribute
+          (not a DOM property). This is essential for attributes like <code>colspan</code>,
+          <code>rowspan</code>, <code>aria-label</code>, and <code>title</code>
+          that don't have corresponding DOM properties. The attribute value is set
+          as a string, and Angular updates it when the expression changes.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="toolbar">
+            <div class="field inline">
+              <label>Colspan</label>
+              <input type="range" min="1" max="3" [value]="span" (input)="span = +$any($event.target).value">
+              <span class="badge">{{ span }}</span>
+            </div>
+            <div class="field inline">
+              <label>Title</label>
+              <input type="text" [value]="titleLocal" (input)="titleLocal = $any($event.target).value"
+                placeholder="Enter table title">
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table [attr.title]="titleLocal">
+              <thead>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td [attr.colspan]="span" style="background:#f0f7ff">colspan={{ span }}</td>
+                  <td *ngIf="span < 2">B</td>
+                  <td *ngIf="span < 3">C</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <button class="btn-secondary" [attr.aria-label]="label" (click)="toggle()">{{ label }}</button>
+          <div class="table-wrapper" style="margin-top: 8px">
+            <table>
+              <thead>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td [attr.colspan]="wide ? 2 : 1">Row 1</td>
+                  <td>Cell</td>
+                  <td>Cell</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08: Pipes -->
+  <div class="accordion" [class.open]="isExpanded('pipes')">
+    <button class="accordion-header" (click)="toggleSection('pipes')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">08</span>
+        <div>
+          <h3 class="accordion-title">Built-in Pipes</h3>
+          <p class="accordion-desc">Transform data in templates: dates, numbers, currency, and more.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codePipes"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Pipes transform displayed values without changing the underlying data.
+          The pipe operator <code>|</code> takes the left expression and passes it
+          through the pipe function. You can chain pipes and pass arguments with colons.
+          Common built-in pipes: <code>date</code>, <code>currency</code>, <code>number</code>,
+          <code>uppercase</code>, <code>lowercase</code>, <code>json</code>, <code>slice</code>.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="field">
+            <label>Today:</label>
+            <p class="result">{{ today | date:'yyyy-MM-dd' }}</p>
+          </div>
+          <div class="field">
+            <label>Username:</label>
+            <p class="result">{{ name }}</p>
+          </div>
+          <div class="field">
+            <label>Ratio:</label>
+            <p class="result">{{ (ratio || 0).toFixed(2) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09: Custom Directives -->
+  <div class="accordion" [class.open]="isExpanded('directives')">
+    <button class="accordion-header" (click)="toggleSection('directives')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">09</span>
+        <div>
+          <h3 class="accordion-title">Custom Attribute Directives</h3>
+          <p class="accordion-desc">Create reusable behavior that modifies element appearance or interaction.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeDirectives"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          An attribute directive attaches to an existing element and augments its behavior.
+          <code>@HostListener</code> listens to DOM events on the host element.
+          <code>@HostBinding</code> binds a host property (like <code>style</code>) to a class field.
+          The directive is declared with a <code>selector</code> attribute name
+          and imported where needed. Standalone directives don't require an NgModule.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <p class="muted">Hover the first box to see the effect:</p>
+          <div class="box" w3Highlight="lightyellow">I get highlighted on hover</div>
+          <div class="box" style="margin-top: 8px">I do not</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10: Component Communication -->
+  <div class="accordion" [class.open]="isExpanded('component-comm')">
+    <button class="accordion-header" (click)="toggleSection('component-comm')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">10</span>
+        <div>
+          <h3 class="accordion-title">Component Communication (@Input / @Output)</h3>
+          <p class="accordion-desc">Pass data down with @Input and emit events up with @Output.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeComponentComm"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          <code>@Input()</code> creates a bindable property that the parent sets via property binding.
+          <code>@Output()</code> creates an event emitter; the parent listens with parentheses.
+          Data flows down via inputs, events flow up via outputs.
+          The <code>EventEmitter</code> extends RxJS Subject and calls <code>emit()</code> to broadcast values.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <p class="result muted">Last child emitted: {{ lastCount }}</p>
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap">
+            <counter-button [step]="1" (clicked)="onChildClicked($event)"></counter-button>
+            <counter-button [step]="5" (clicked)="onChildClicked($event)"></counter-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11: Debounce -->
+  <div class="accordion" [class.open]="isExpanded('debounce')">
+    <button class="accordion-header" (click)="toggleSection('debounce')">
+      <div class="accordion-header-content">
+        <span class="accordion-number">11</span>
+        <div>
+          <h3 class="accordion-title">Debounced Input &amp; Event Filtering</h3>
+          <p class="accordion-desc">Delay updates with debounce, and filter events with key modifiers.</p>
+        </div>
+      </div>
+      <span class="accordion-chevron"></span>
+    </button>
+    <div class="accordion-body">
+      <div class="lecture-section">
+        <h4 class="section-label">Syntax</h4>
+        <pre class="code-block"><code [textContent]="codeDebounce"></code></pre>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Semantics</h4>
+        <p class="section-text">
+          Debouncing delays the update until the user pauses typing, reducing unnecessary processing.
+          Manual debounce uses <code>clearTimeout</code>/<code>setTimeout</code>.
+          Angular also supports <code>(input.debounce)</code> in templates.
+          Event modifiers like <code>.enter</code>, <code>.escape</code>, <code>.tab</code>
+          filter which key triggers the handler.
+        </p>
+      </div>
+      <div class="lecture-section">
+        <h4 class="section-label">Live Example</h4>
+        <div class="example-box">
+          <div class="field">
+            <label>Type here</label>
+            <input type="text" placeholder="Type here" (input)="onInput1($event)">
+          </div>
+          <div class="result-row">
+            <p class="result">Immediate: {{ immediate }}</p>
+            <p class="result">Debounced (400ms): {{ debounced }}</p>
+          </div>
+          <hr>
+          <div class="toolbar">
+            <input type="text" placeholder="Add item and press Enter" [value]="draft"
+              (input)="draft = $any($event.target).value" (keyup.enter)="add()">
+            <button class="btn-primary" (click)="add()">Add</button>
+            <button class="btn-secondary" (click)="clear()">Clear</button>
+          </div>
+          <ul class="item-list">
+            <li *ngFor="let it of todoItems; let i = index">{{ i + 1 }}. {{ it }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </main>

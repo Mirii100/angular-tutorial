@@ -4,6 +4,9 @@ import { About } from './components/about/about';
 import { Forms } from './components/forms/forms';
 import { RoutesDemo } from './components/routes/routes';
 import { Product } from './components/product/product';
+import { Protected, authGuard, Routeguards } from './components/routeguards/routeguards';
+import { Counters } from './components/counters/counters';
+import { AngularHttpclientsComponent } from './components/angular-httpclients-component/angular-httpclients-component';
 
 export const routes: Routes = [
     {
@@ -31,4 +34,22 @@ export const routes: Routes = [
         path: 'product/:id',
         component: Product,
     },
+    {
+        path: 'protected',
+        component: Protected,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'routeguards',
+        component: Routeguards,
+    },
+    {
+        path: 'counters',
+        component: Counters,
+    },
+
+    {
+        path: 'angular-httpclients-component',
+        component: AngularHttpclientsComponent,
+    }
 ];

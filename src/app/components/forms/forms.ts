@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { User } from '../../services/user';
 @Component({
   selector: 'app-forms',
   imports: [CommonModule],
@@ -27,4 +27,8 @@ export class Forms {
   onSubmited() {
     this.submitted = true;
   }
+
+  constructor(public userService: User) {}
+
+
 }
