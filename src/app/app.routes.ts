@@ -10,6 +10,7 @@ import { AngularHttpclientsComponent } from './components/angular-httpclients-co
 import { Angularpipes } from './components/angularpipes/angularpipes';
 import { Angularlifecyclehooks } from './components/angularlifecyclehooks/angularlifecyclehooks';
 import { App } from './app';
+import { ControlFlow } from './components/control-flow/control-flow';
 
 export const routes: Routes = [
     {
@@ -63,5 +64,14 @@ export const routes: Routes = [
     {
         path: 'angularlifecyclehooks',
         component: Angularlifecyclehooks,
-    }
+    },
+
+
+
+{
+    path:'control-flow',
+    component:ControlFlow
+}
+
+
 ];

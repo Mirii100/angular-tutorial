@@ -1,0 +1,82 @@
+<div class="page-title">Control Flow &amp; Signals</div>
+<p class="page-subtitle">Angular's built-in control flow syntax and reactive signals.</p>
+
+<div class="card">
+  <h3>Control Flow</h3>
+  <div class="toolbar">
+    <button class="btn-secondary" (click)="show.set(!show())">Toggle</button>
+    <button class="btn-danger" (click)="items.set([])">Clear</button>
+    <button class="btn-primary" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="output-box" [class.highlight]="show()">
+    @if (show()) {
+      <span class="status-visible">Visible</span>
+    } @else {
+      <span class="status-hidden">Hidden</span>
+    }
+  </div>
+
+  <ul class="item-list">
+    @for (item of items(); track item) {
+      <li>{{ item }}</li>
+    } @empty {
+      <li>No items</li>
+    }
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Signals</h3>
+  <div class="counter-display">
+    <div>
+      <span class="section-text">Count</span>
+      <div class="counter-value">{{ count() }}</div>
+    </div>
+    <div>
+      <span class="section-text">Double</span>
+      <div class="counter-value computed">{{ double() }}</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="inc()">Increment</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Derived &amp; Effects</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Wrap read-only formulas in <code>computed()</code>; it recalculates when dependencies change.
+    Use <code>effect()</code> for side effects such as logging or syncing.
+  </p>
+  <div class="output-box">
+    a: {{ a() }} | b: {{ b() }} | sum: {{ sum() }}
+  </div>
+  <div class="toolbar">
+    <button class="btn-secondary" (click)="incA()">inc a</button>
+    <button class="btn-secondary" (click)="incB()">inc b</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>OnPush + Signals</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    OnPush checks only on inputs, events/async tasks, and signal updates.
+    Signals push updates explicitly via state changes for predictable renders.
+    Use <code>track</code> for identity to avoid DOM churn.
+  </p>
+  <div class="counter-display">
+    <div>
+      <span class="section-text">Count</span>
+      <div class="counter-value">{{ count() }}</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="inc()">Increment</button>
+  </div>
+  <ul class="item-list">
+    @for (it of items(); track it) {
+      <li>{{ it }}</li>
+    }
+  </ul>
+</div>

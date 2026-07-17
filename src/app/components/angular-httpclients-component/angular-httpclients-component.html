@@ -92,3 +92,23 @@
     </table>
   </div>
 </div>
+<h3>Dynamic Styling</h3>
+
+    <div class="toolbar">
+      <label><input type="checkbox" [(ngModel)]="fancy"> Fancy</label>
+      <label><input type="checkbox" [(ngModel)]="rounded"> Rounded</label>
+      <label>Color <input type="color" [(ngModel)]="color"></label>
+      <label>Padding <input type="range" min="0" max="40" [(ngModel)]="padding"> {{ padding }}px</label>
+      <label>Font Size <input type="range" min="12" max="36" [(ngModel)]="fontSize"> {{ fontSize }}px</label>
+    </div>
+
+    <div class="box"
+      [ngClass]="{ fancy: fancy, rounded: rounded }"
+      [ngStyle]="{
+        color: color,
+        borderColor: color,
+        padding: padding + 'px',
+        fontSize: fontSize + 'px'
+      }">
+      Styled box
+    </div>

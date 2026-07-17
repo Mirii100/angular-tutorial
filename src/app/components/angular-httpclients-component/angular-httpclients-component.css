@@ -202,3 +202,8 @@
   font-size: 0.9rem;
   color: var(--color-text);
 }
+ .box { border: 2px solid #ccc; margin-top: 12px; border-radius: 6px; transition: all .15s ease-in-out; }
+    .fancy { box-shadow: 0 2px 8px rgba(0,0,0,.15); background: #f9fbff; }
+    .rounded { border-radius: 14px; }
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .toolbar label { display: inline-flex; align-items: center; gap: 6px; }

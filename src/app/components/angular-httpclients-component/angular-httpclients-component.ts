@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { provideHttpClient, HttpClient , withInterceptors, HttpResponse, HttpErrorResponse, HttpRequest, HttpHandlerFn} from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 
@@ -24,13 +25,17 @@ function mockHttp(req: HttpRequest<any>, next: HttpHandlerFn) {
 
 @Component({
   selector: 'app-angular-httpclients-component',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './angular-httpclients-component.html',
   styleUrl: './angular-httpclients-component.css',
   standalone: true,
 })
 export class AngularHttpclientsComponent {
-
+ fancy = true;
+  rounded = false;
+  color = '#4169e1';
+  padding = 12;
+  fontSize = 18;
   http = inject(HttpClient);
   users: any[] = [];
   loading = false;
@@ -95,5 +100,5 @@ createPost() {
   }
 
 
-  
+
 }
