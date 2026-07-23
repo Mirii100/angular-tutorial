@@ -1,0 +1,113 @@
+<div class="page-title">Signals</div>
+<p class="page-subtitle">Angular signals, computed values, effects, and dynamic components.</p>
+
+<div class="card">
+  <h3>OnPush + Signals</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    OnPush checks only on inputs, events/async tasks, and signal updates.
+    Signals push updates explicitly via state changes for predictable renders.
+  </p>
+  <div class="counter-display">
+    <div>
+      <span class="section-text">Count</span>
+      <div class="counter-value">{{ count() }}</div>
+    </div>
+    <div>
+      <span class="section-text">Double (computed)</span>
+      <div class="counter-value computed">{{ double() }}</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="inc()">Increment</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Signal-driven List</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Use <code>signal()</code> for mutable state and <code>.update()</code> to derive new values immutably.
+  </p>
+  <ul class="item-list">
+    @for (it of items(); track it.id) {
+    <li>
+      <span class="badge">{{ it.id }}</span>
+      {{ it.label }}
+    </li>
+    } @empty {
+    <li>No items</li>
+    }
+  </ul>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="add()">Add Item</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Computed &amp; Effects</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Wrap read-only formulas in <code>computed()</code>; it recalculates only when dependencies change.
+    Use <code>effect()</code> for side effects such as logging or syncing.
+  </p>
+  <div class="output-box">
+    double = {{ double() }} (logged via effect)
+  </div>
+</div>
+
+<div class="card">
+  <h3>Dynamic <code>createComponent()</code></h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Create components at runtime with <code>createComponent()</code> and attach them into a host element.
+    Provide inputs/outputs and use <code>EnvironmentInjector</code> so the component can resolve providers.
+  </p>
+  <div #host class="output-box" style="min-height: 60px;">
+    <span class="muted">Component will appear here</span>
+  </div>
+  <div class="toolbar">
+    <button class="btn-primary" (click)="mount()">Mount</button>
+    <button class="btn-secondary" (click)="updateTitle()">Update Input</button>
+    <button class="btn-danger" (click)="unmount()">Unmount</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Selectorless via <code>*ngComponentOutlet</code></h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Render a standalone component without a selector using <code>*ngComponentOutlet</code>.
+    Pass inputs and outputs inline in the outlet micro-syntax.
+  </p>
+  <div class="counter-display">
+    <div>
+      <span class="section-text">Clicks</span>
+      <div class="counter-value">{{ clicks() }}</div>
+    </div>
+  </div>
+  <ng-container
+    *ngComponentOutlet="ActionButton; inputs: { label: 'Launch' }; outputs: { clicked: onClick }"></ng-container>
+</div>
+
+<div class="card">
+  <h3>Advanced DI: Multi Providers</h3>
+  <p class="section-text" style="margin-bottom: 14px">
+    Use <code>InjectionToken</code> for non-class values and configuration.
+    Multi providers enable flexible composition of features.
+  </p>
+  <div class="output-box">
+    Features: {{ features.join(', ') }}
+  </div>
+</div>
+
+HTTP Interceptors Essentials
+Inspect or transform requests and responses globally.
+An interceptor is a function in the HttpClient pipeline that runs for every request/response.
+Common uses: auth headers, error handling, retries, logging.
+
+
+emplate: `
+<h3>HTTP Interceptor</h3>
+<button (click)="load()">Load</button>
+<pre>{{ data | json }}</pre>
+
+Error Handling and Retries
+Centralize HTTP error handling in an interceptor.
+Keep components simpler by mapping errors to user-friendly messages.
+Add retry logic carefully with backoff; avoid retrying non-retryable errors (e.g., 4xx).

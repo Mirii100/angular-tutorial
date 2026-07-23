@@ -11,12 +11,13 @@ import { Angularpipes } from './components/angularpipes/angularpipes';
 import { Angularlifecyclehooks } from './components/angularlifecyclehooks/angularlifecyclehooks';
 import { App } from './app';
 import { ControlFlow } from './components/control-flow/control-flow';
+import { AngularSignal } from './components/angular-signal/angular-signal';
 
 export const routes: Routes = [
     {
         path: '',
         //component:App,
-         redirectTo: 'conditional-rendering',
+        redirectTo: 'conditional-rendering',
         pathMatch: 'full',
     },
     {
@@ -68,10 +69,13 @@ export const routes: Routes = [
 
 
 
-{
-    path:'control-flow',
-    component:ControlFlow
-}
-
+    {
+        path: 'control-flow',
+        component: ControlFlow
+    },
+    {
+        path: 'angular-signal',
+        component: AngularSignal,
+    }
 
 ];
